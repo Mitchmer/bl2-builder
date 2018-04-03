@@ -7,15 +7,25 @@ class Api::BuildsController < ApplicationController
   end
 
   def show
+    render json: @build
   end
 
   def update
   end
 
   def create
-    
+
   end
 
   def destroy
   end
+
+  private
+    def set_build
+      @build = Build.find(params[:id])
+    end
+
+    def build_params
+      params.require(:build).permit(:name, :character)
+    end
 end

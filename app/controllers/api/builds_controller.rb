@@ -1,9 +1,13 @@
 class Api::BuildsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:update, :create, :destroy]
   before_action :set_builds, only: [:show, :update]
   
   def index
     render json: Build.all
+  end
+
+  def user_index
+    render json: current_user.builds.all.order(created_at: :desc)
   end
 
   def show
@@ -14,7 +18,12 @@ class Api::BuildsController < ApplicationController
   end
 
   def create
-
+    build = current_user.builds.create(build_params)
+    if build.save
+      render json: build
+    else
+      render json: { errors: build.errors.full_messages.join(',') }, status: 422
+    end
   end
 
   def destroy

@@ -31,6 +31,7 @@ class NavBar extends Component {
   }
 
   render() {
+    const { user } = this.props
     return (
       <div>
         <Menu pointing secondary>
@@ -40,6 +41,14 @@ class NavBar extends Component {
           <Link to='/builds'>
             <Menu.Item name='Builds' />
           </Link>
+          { user.id ? 
+            <Link to='/create'>
+              <Menu.Item name='Create New' />
+            </Link>
+            // TODO: make 'My Builds'
+            :
+            null
+          }
           { this.rightNavs() }
         </Menu>
       </div>

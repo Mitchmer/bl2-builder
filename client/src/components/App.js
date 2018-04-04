@@ -1,3 +1,4 @@
+import CreateBuild from './CreateBuild'
 import React, { Component } from 'react';
 import NoMatch from './NoMatch';
 import NavBar from './NavBar';
@@ -9,6 +10,7 @@ import ProtectedRoute from './ProtectedRoute';
 import AuthRoute from './AuthRoute';
 import FetchUser from './FetchUser';
 import FetchBuilds from './FetchBuilds'
+import UserBuilds from './UserBuilds'
 import { Switch, Route } from 'react-router-dom';
 
 class App extends Component {
@@ -21,6 +23,8 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={Home} />
             <Route path='/builds' component={FetchBuilds} />
+            <ProtectedRoute exact path='/userbuilds' component={UserBuilds} />
+            <ProtectedRoute exact path='/create' component={CreateBuild} />
             <AuthRoute exact path='/login' component={Login} />
             <AuthRoute exact path='/register' component={Register} />
             <Route component={NoMatch} />

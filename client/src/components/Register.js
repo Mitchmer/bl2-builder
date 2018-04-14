@@ -5,18 +5,18 @@ import { registerUser } from '../actions/auth';
 import { setFlash } from '../actions/flash';
 
 class Register extends Component {
-  state = { email: '', password: '', passwordConfirmation: '' };
+  state = { email: '', password: '', username: '', passwordConfirmation: '' };
 
   handleSubmit = event => {
     event.preventDefault();
-    const { email, password, passwordConfirmation } = this.state;
+    const { email, password, username, passwordConfirmation } = this.state;
     const { dispatch, history } = this.props;
     if (password === passwordConfirmation) {
-      dispatch(registerUser(email, password, passwordConfirmation, history));
+      dispatch(registerUser(email, password, username, passwordConfirmation, history));
     } else dispatch(setFlash('Passwords do not match!, please try again', 'red'));
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     // use e to grab the id off the element also the value and set state
     // const { id, value } = event.target;
     const id = event.target.id;
@@ -25,14 +25,24 @@ class Register extends Component {
   }
 
   render() {
-    const { email, password, passwordConfirmation } = this.state;
+    const { email, password, username, passwordConfirmation } = this.state;
 
     return (
       <Segment basic>
         <Header as='h1' textAlign='center'>Register Component</Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Field>
-            <label htmlFor='email'>Email</label>
+            <label>Username*</label>
+            <input
+              id='username'
+              placeholder='Username'
+              required
+              value={username}
+              onChange={this.handleChange}
+            />
+          </Form.Field>
+          <Form.Field>
+            <label htmlFor='email'>Email*</label>
             <input
               id='email'
               placeholder='Email'
@@ -42,7 +52,7 @@ class Register extends Component {
             />
           </Form.Field>
           <Form.Field>
-            <label htmlFor='password'>Password</label>
+            <label htmlFor='password'>Password*</label>
             <input
               id='password'
               placeholder='Password'
@@ -53,7 +63,7 @@ class Register extends Component {
             />
           </Form.Field>
           <Form.Field>
-            <label htmlFor='passwordConfirmation'>Password Confirmation</label>
+            <label htmlFor='passwordConfirmation'>Password Confirmation*</label>
             <input
               id='passwordConfirmation'
               placeholder='Password Confirmation'
@@ -63,6 +73,9 @@ class Register extends Component {
               onChange={this.handleChange}
             />
           </Form.Field>
+          <br />
+            * required
+          <br />
           <Segment basic textAlign='center'>
             <Button type='submit'>Submit</Button>
           </Segment>

@@ -11,9 +11,9 @@ const logout = () => {
   return { type: 'LOGOUT' };
 };
 
-export const registerUser = (email, password, passwordConfirmation, history) => {
+export const registerUser = (email, password, username, passwordConfirmation, history) => {
   return dispatch => {
-    axios.post('/api/auth', { email, password, password_confirmation: passwordConfirmation })
+    axios.post('/api/auth', { email, password, username, password_confirmation: passwordConfirmation })
       .then(res => {
         const { data: { data: user }, headers } = res;
         dispatch(setHeaders(headers));
@@ -52,9 +52,9 @@ export const handleLogout = history => {
   };
 };
 
-export const handleLogin = (email, password, history) => {
+export const handleLogin = (email, password, username, history) => {
   return dispatch => {
-    axios.post('/api/auth/sign_in', { email, password })
+    axios.post('/api/auth/sign_in', { email, password, username })
       .then(res => {
         const { data: { data: user }, headers } = res;
         dispatch(setHeaders(headers));

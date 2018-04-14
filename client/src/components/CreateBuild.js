@@ -1,9 +1,16 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { 
+  Container, 
+  Form, 
+} from 'semantic-ui-react'
 
 const CreateBuild = () => {
   return (
-    <div>Create Tools Go Here</div>
+    <Container>
+      
+    </Container>
   )
 }
 
-export default CreateBuild
+export default connect()(CreateBuild)

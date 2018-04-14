@@ -1,15 +1,16 @@
+import AuthRoute from './AuthRoute';
+import Builds from './Builds'
 import CreateBuild from './CreateBuild'
-import React, { Component } from 'react';
-import NoMatch from './NoMatch';
-import NavBar from './NavBar';
-import Login from './Login';
-import Register from './Register';
+import FetchBuilds from './FetchBuilds'
+import FetchUser from './FetchUser';
 import Flash from './Flash';
 import Home from './Home';
+import Login from './Login';
+import NoMatch from './NoMatch';
+import NavBar from './NavBar';
 import ProtectedRoute from './ProtectedRoute';
-import AuthRoute from './AuthRoute';
-import FetchUser from './FetchUser';
-import FetchBuilds from './FetchBuilds'
+import React, { Component } from 'react';
+import Register from './Register';
 import UserBuilds from './UserBuilds'
 import { Switch, Route } from 'react-router-dom';
 
@@ -21,7 +22,7 @@ class App extends Component {
         <Flash />
         <FetchUser>
           <Switch>
-            <Route exact path='/' component={Home} />
+            <Route exact path='/' component={Builds} />
             <Route path='/builds' component={FetchBuilds} />
             <ProtectedRoute exact path='/userbuilds' component={UserBuilds} />
             <ProtectedRoute exact path='/create' component={CreateBuild} />

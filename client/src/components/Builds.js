@@ -62,24 +62,23 @@ class Builds extends React.Component {
   render() {
     const { user } = this.props
     return (
-      <Fragment>
-        { user ? (
-          <Container>
+      <Container>
+        { user ?
+          <Fragment>
             <Button onClick={this.allBuildsView}>
               All Builds
             </Button>
             <Button onClick={this.userBuildsView}>
               My Builds
             </Button>
-          </Container>
-        )
+          </Fragment> 
         :
-        null
-      }
+          null
+        }
         <List>
           {this.buildsToggle()}
         </List>
-      </Fragment>     
+      </Container>    
     )
   }
 }

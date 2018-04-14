@@ -35,17 +35,16 @@ class NavBar extends Component {
     return (
       <div>
         <Menu pointing secondary>
-          <Link to='/'>
+          {/* <Link to='/'>
             <Menu.Item name='home' />
-          </Link>
-          <Link to='/builds'>
+          </Link> */}
+          <Link to='/'>
             <Menu.Item name='Builds' />
           </Link>
           { user.id ? 
             <Link to='/create'>
               <Menu.Item name='Create New' />
             </Link>
-            // TODO: make 'My Builds'
             :
             null
           }

@@ -1,26 +1,31 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getUserBuilds } from '../actions/builds'
-import { Header, Container, List } from 'semantic-ui-react'
+import { 
+  Container,
+  Divider, 
+  Header, 
+  List, 
+} from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 class UserBuilds extends React.Component {
-  state = { userBuilds: {} }
 
   componentDidMount() {
     const { user } = this.props
     this.props.dispatch(getUserBuilds(user.id))
   }
 
-  // debug = () => {
-  //   debugger
-  // }
-
   render () {
-    const { userBuilds } = this.props
+    const { userBuilds, user } = this.props
     return (
       <div>
         <Container>
+          <Divider horizontal>
+            <Header as="h1">
+              {user.username}'s Builds
+            </Header>
+          </Divider>
           <List>
             {
               userBuilds.map( b =>
@@ -44,7 +49,10 @@ class UserBuilds extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { userBuilds: state.userbuilds, user: state.user }
+  return { 
+    userBuilds: state.userbuilds, 
+    user: state.user,
+  }
 }
 
 export default connect(mapStateToProps)(UserBuilds)

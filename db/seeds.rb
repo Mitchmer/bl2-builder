@@ -1,14 +1,17 @@
 
 
 10.times do
-  user = User.create(
+  u = User.create(
     email: Faker::Internet.unique.email,
+    username: Faker::ElderScrolls.name,
     password: 'password'
   )
   2.times do
-    user.builds.create(
-      name: Faker::ElderScrolls.unique.dragon,
-      character: Faker::ElderScrolls.first_name
+    Build.create(
+      user_id: u.id,
+      name: Faker::ElderScrolls.dragon,
+      character: Faker::Hobbit.name,
+      description: Faker::Hipster.paragraph
     )
   end
 end

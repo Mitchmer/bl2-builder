@@ -14,6 +14,17 @@ export const getBuilds = () => {
   }
 }
 
+export const addBuild = (build, history) => {
+  return (dispatch) => {
+    axios.post('api/builds/', { build })
+      .then( res => {
+        dispatch({ type: ADD_BUILD, build: res.data })
+        dispatch({ type: 'HEADERS', headers: res.headers })
+        history.push(`/builds/${res.data.id}`)
+      })      
+  }
+}
+
 export const getUserBuilds = (id) => {
   //axios request to custom route
   return (dispatch) => {

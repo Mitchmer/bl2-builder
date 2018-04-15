@@ -1,6 +1,6 @@
 import AuthRoute from './AuthRoute';
 import Builds from './Builds'
-import CreateBuild from './CreateBuild'
+import BuildForm from './BuildForm'
 import FetchBuilds from './FetchBuilds'
 import FetchUser from './FetchUser';
 import Flash from './Flash';
@@ -25,7 +25,7 @@ class App extends Component {
             <Route exact path='/' component={Builds} />
             <Route path='/builds' component={FetchBuilds} />
             <ProtectedRoute exact path='/userbuilds' component={UserBuilds} />
-            <ProtectedRoute exact path='/create' component={CreateBuild} />
+            <ProtectedRoute exact path='/create' component={BuildForm} />
             <AuthRoute exact path='/login' component={Login} />
             <AuthRoute exact path='/register' component={Register} />
             <Route component={NoMatch} />

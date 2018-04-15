@@ -16,6 +16,7 @@ class Builds extends React.Component {
 
   componentDidMount() {
     this.props.dispatch(getBuilds())
+    this.props.user && this.userBuildsView()
   }
 
   allBuildsView = () => {
@@ -29,13 +30,7 @@ class Builds extends React.Component {
       return { buildView: 'user builds' }
     })
   }
-  //Maybe wrong approach?
-  //
-  // toggleView = () => {
-  //   this.setState( state => {
-  //     return { buildView: !buildView }
-  //   })
-  // }
+
   buildsToggle = () => {
     const { builds } = this.props
     const { buildView } = this.state
@@ -63,7 +58,7 @@ class Builds extends React.Component {
     const { user } = this.props
     return (
       <Container>
-        { user ?
+        { user &&
           <Fragment>
             <Button onClick={this.allBuildsView}>
               All Builds
@@ -72,8 +67,6 @@ class Builds extends React.Component {
               My Builds
             </Button>
           </Fragment> 
-        :
-          null
         }
         <List>
           {this.buildsToggle()}

@@ -3,7 +3,7 @@ class Api::BuildsController < ApplicationController
   before_action :set_builds, only: [:show, :update]
   
   def index
-    render json: Build.all
+    render json: Build.all.order(created_at: :desc)
   end
 
   def user_index
@@ -35,6 +35,6 @@ class Api::BuildsController < ApplicationController
     end
 
     def build_params
-      params.require(:build).permit(:name, :character)
+      params.require(:build).permit(:name, :character, :description)
     end
 end

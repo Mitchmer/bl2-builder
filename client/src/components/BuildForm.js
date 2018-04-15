@@ -9,7 +9,16 @@ import {
 import { addBuild } from '../actions/builds'
 
 class BuildForm extends React.Component {
-  state = { buildName: '', character: '', description: '' }
+  state = { buildName: '', character: '', description: ''}
+
+  characterOptions = [
+    { key: 'maya', text: 'Maya, Siren', value: 'Maya' },
+    { key: 'axton', text: 'Axton, Commando', value: 'Axton' },
+    { key: 'zero', text: 'Zer0, Assassin', value: 'Zer0' },
+    { key: 'salvador', text: 'Salvador, Gunzerker', value: 'Salvador' },
+    { key: 'krieg', text: 'Krieg, Pycho', value: 'Krieg' },
+    { key: 'gaige', text: 'Gaige, Mechromancer', value: 'Gaige' },
+  ]
 
   handleChange = (e) => {
     const { id, value } = e.target;
@@ -23,11 +32,6 @@ class BuildForm extends React.Component {
     dispatch(addBuild(pendingBuild, history))
   }
 
-  newBuildRouter = (id) => {
-    
-    this.props.history.push(`builds/${id}`)
-  }
-
   render(){
 
     const { buildName, character, description } = this.state
@@ -36,7 +40,7 @@ class BuildForm extends React.Component {
         <Form onSubmit={this.handleSubmit}>
           <Form.Field>
             <Form.Input
-              label="Build Name*"
+              label="Build Name"
               required
               id="buildName"
               value={buildName}
@@ -45,18 +49,21 @@ class BuildForm extends React.Component {
             />
           </Form.Field>
           <Form.Field>
-            <Form.Input
-              label="Character*"
+            <Form.Select
+              label="Character"
               required
+              options={this.characterOptions}
               id="character"
               value={character}
-              placeholder="Character Name"
-              onChange={this.handleChange}
+              placeholder='Character'
+              onChange={(e, {value}) => {
+                this.setState({ character: value })
+              }}
             />
           </Form.Field>
           <Form.Field>
             <Form.TextArea
-              label="Description*"
+              label="Description"
               required
               id="description"
               value={description}

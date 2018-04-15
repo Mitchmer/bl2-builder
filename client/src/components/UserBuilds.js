@@ -20,7 +20,6 @@ class UserBuilds extends React.Component {
     const { userBuilds, user } = this.props
     return (
       <div>
-        <Container>
           <Divider horizontal>
             <Header as="h1">
               {user.username}'s Builds
@@ -29,20 +28,22 @@ class UserBuilds extends React.Component {
           <List>
             {
               userBuilds.map( b =>
-                <List.Item key={b.id}>
-                  <Link to={`/builds/${b.id}`}>
-                    <Header as="h2">
-                      {b.name}
-                    </Header>
-                  </Link>
+                <div>
+                  <List.Item key={b.id}>
+                    <Link to={`/builds/${b.id}`}>
+                      <Header as="h2">
+                        {b.name}
+                      </Header>
+                    </Link>
                     <Header as="h5">
                       {b.character}
                     </Header>
                   </List.Item>
+                  <Divider hidden />
+                </div>
               )
             }
           </List>
-        </Container>
       </div>
     )
   }  

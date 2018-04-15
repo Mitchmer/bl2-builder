@@ -6,6 +6,7 @@ import {
   Header,
   List,
 } from 'semantic-ui-react'
+import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { getBuilds } from '../actions/builds'
 import { Link } from 'react-router-dom'
@@ -39,18 +40,20 @@ class Builds extends React.Component {
         return <UserBuilds />
       default:
         return (builds.map( build => 
-          <List.Item key={build.id}>
-            <Link to={`/builds/${build.id}`}>
-              <Header as="h2">
-                {build.name}
+          <div>
+            <List.Item key={build.id}>
+              <Link to={`/builds/${build.id}`}>
+                <Header as="h2">
+                  {build.name}
+                </Header>
+              </Link>
+              <Header as="h5">
+                {build.character}
               </Header>
-            </Link>
-            <Header as="h5">
-              {build.character}
-            </Header>
-          </List.Item>
+            </List.Item>
+            <Divider hidden />
+          </div>
         ))
-
     }
   }
 
@@ -75,6 +78,10 @@ class Builds extends React.Component {
     )
   }
 }
+
+const StyledHeader = styled(Header)`
+  margin: 0 !important;
+`
 
 const mapStateToProps = (state) => {
   return { builds: state.builds, user: state.user.id }

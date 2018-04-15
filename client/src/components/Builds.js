@@ -39,21 +39,33 @@ class Builds extends React.Component {
       case 'user builds':
         return <UserBuilds />
       default:
-        return (builds.map( build => 
+        return (
           <div>
-            <List.Item key={build.id}>
-              <Link to={`/builds/${build.id}`}>
-                <Header as="h2">
-                  {build.name}
-                </Header>
-              </Link>
-              <Header as="h5">
-                {build.character}
+            <Divider horizontal>
+              <Header as="h1">
+                All Builds
               </Header>
-            </List.Item>
-            <Divider hidden />
+            </Divider>
+            <List>
+            { builds.map( build => (
+                <div key={build.id}>
+                    <List.Item>
+                      <Link to={`/builds/${build.id}`}>
+                        <Header as="h2">
+                          {build.name}
+                        </Header>
+                      </Link>
+                      <StyledHeader as="h5">
+                        {build.character}
+                      </StyledHeader>
+                    </List.Item>
+                    <Divider hidden />
+                </div>
+              ))
+            }
+            </List>
           </div>
-        ))
+        )
     }
   }
 
@@ -71,9 +83,7 @@ class Builds extends React.Component {
             </Button>
           </Fragment> 
         }
-        <List>
-          {this.buildsToggle()}
-        </List>
+        {this.buildsToggle()}
       </Container>    
     )
   }

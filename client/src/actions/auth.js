@@ -52,9 +52,9 @@ export const handleLogout = history => {
   };
 };
 
-export const handleLogin = (email, password, username, history) => {
+export const handleLogin = (email, password, history) => {
   return dispatch => {
-    axios.post('/api/auth/sign_in', { email, password, username })
+    axios.post('/api/auth/sign_in', { email, password })
       .then(res => {
         const { data: { data: user }, headers } = res;
         dispatch(setHeaders(headers));

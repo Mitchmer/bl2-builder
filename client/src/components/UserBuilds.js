@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { getUserBuilds } from '../actions/builds'
 import { 
@@ -28,16 +29,16 @@ class UserBuilds extends React.Component {
           <List>
             {
               userBuilds.map( b =>
-                <div>
-                  <List.Item key={b.id}>
+                <div key={b.id}>
+                  <List.Item>
                     <Link to={`/builds/${b.id}`}>
                       <Header as="h2">
                         {b.name}
                       </Header>
                     </Link>
-                    <Header as="h5">
+                    <StyledHeader as="h5">
                       {b.character}
-                    </Header>
+                    </StyledHeader>
                   </List.Item>
                   <Divider hidden />
                 </div>
@@ -48,6 +49,10 @@ class UserBuilds extends React.Component {
     )
   }  
 }
+
+const StyledHeader = styled(Header)`
+  margin: 0 !important;
+`
 
 const mapStateToProps = (state) => {
   return { 

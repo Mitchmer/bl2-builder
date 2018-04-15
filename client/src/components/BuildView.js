@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Header, Container } from 'semantic-ui-react'
+import { Header, Container, Divider } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 
 class BuildView extends React.Component {
@@ -13,10 +13,11 @@ class BuildView extends React.Component {
   }
 
   render() {
-    const { build = {}, user } = this.props
+    const { build = {} } = this.props
 
     return (
       <Container>
+        <Divider hidden />
         <Header as="h2">
           {build.name}
         </Header>

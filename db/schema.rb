@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180415000200) do
+ActiveRecord::Schema.define(version: 20180415215459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(version: 20180415000200) do
     t.datetime "updated_at", null: false
     t.text "description"
     t.index ["user_id"], name: "index_builds_on_user_id"
+  end
+
+  create_table "maya_skills", force: :cascade do |t|
+    t.integer "accelerate"
+    t.integer "ward"
+    t.bigint "build_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["build_id"], name: "index_maya_skills_on_build_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -57,4 +66,5 @@ ActiveRecord::Schema.define(version: 20180415000200) do
   end
 
   add_foreign_key "builds", "users"
+  add_foreign_key "maya_skills", "builds"
 end

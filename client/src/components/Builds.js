@@ -16,8 +16,9 @@ class Builds extends React.Component {
   state = { buildView: '' }
 
   componentDidMount() {
-    this.props.dispatch(getBuilds())
-    this.props.user && this.userBuildsView()
+    const { dispatch, user } = this.props
+    dispatch(getBuilds())
+    user && this.userBuildsView()
   }
 
   allBuildsView = () => {
@@ -47,8 +48,8 @@ class Builds extends React.Component {
               </Header>
             </Divider>
             <List>
-            { builds.map( build => (
-                <div key={build.id}>
+              { builds.map( build => (
+                  <div key={build.id}>
                     <List.Item>
                       <Link to={`/builds/${build.id}`}>
                         <Header as="h2">
@@ -60,9 +61,9 @@ class Builds extends React.Component {
                       </StyledHeader>
                     </List.Item>
                     <Divider hidden />
-                </div>
-              ))
-            }
+                  </div>
+                ))
+              }
             </List>
           </div>
         )

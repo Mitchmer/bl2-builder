@@ -7,9 +7,10 @@ import {
   Button,
 } from 'semantic-ui-react'
 import { addBuild } from '../actions/builds'
+import SkillSelector from './SkillSelector';
 
 class BuildForm extends React.Component {
-  state = { buildName: '', character: '', description: ''}
+  state = { buildName: '', character: '', description: '' }
 
   characterOptions = [
     { key: 'maya', text: 'Maya, Siren', value: 'Maya' },
@@ -56,7 +57,7 @@ class BuildForm extends React.Component {
               id="character"
               value={character}
               placeholder='Character'
-              onChange={(e, {value}) => {
+              onChange={(e, { value }) => {
                 this.setState({ character: value })
               }}
             />
@@ -73,6 +74,7 @@ class BuildForm extends React.Component {
           </Form.Field>
           <Button>Submit</Button>
         </Form>
+        <SkillSelector />
       </Container>
     )
   }

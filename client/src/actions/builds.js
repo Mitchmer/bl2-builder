@@ -35,9 +35,3 @@ export const getUserBuilds = (id) => {
         })
   }
 }
-
-// export const addBuild = () => {
-//   reutrn (dispatch) => {
-//     axios.post('api/builds/')
-//   }
-// }

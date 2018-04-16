@@ -21,31 +21,44 @@ class UserBuilds extends React.Component {
     const { userBuilds, user } = this.props
     return (
       <div>
-          <Divider horizontal>
-            <Header as="h1">
-              {user.username}'s Builds
-            </Header>
-          </Divider>
-          <List>
-            {
-              userBuilds.map( b =>
-                <div key={b.id}>
-                  <List.Item>
-                    <Link to={`/builds/${b.id}`}>
-                      <Header as="h2">
-                        {b.name}
-                      </Header>
-                    </Link>
-                    <StyledHeader as="h5">
-                      {b.character}
-                    </StyledHeader>
-                  </List.Item>
-                  <Divider hidden />
-                </div>
-              )
-            }
-          </List>
-      </div>
+        { userBuilds.length > 0 ?
+            <div>
+              <Divider horizontal>
+                <Header as="h1">
+                  {user.username}'s Builds
+                </Header>
+              </Divider>
+              <List>
+                {
+                  userBuilds.map( b =>
+                    <div key={b.id}>
+                      <List.Item>
+                        <Link to={`/builds/${b.id}`}>
+                          <Header as="h2">
+                            {b.name}
+                          </Header>
+                        </Link>
+                        <StyledHeader as="h5">
+                          {b.character}
+                        </StyledHeader>
+                      </List.Item>
+                      <Divider hidden />
+                    </div>
+                  )
+                }
+              </List>
+            </div>
+          :
+            <div>
+              <Divider hidden />
+              <Link to='/create'>
+                <Header as="h2" textAlign="center">
+                  Start Building!
+                </Header>
+              </Link>
+            </div>
+        }
+        </div>
     )
   }  
 }

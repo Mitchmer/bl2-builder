@@ -62,15 +62,17 @@ export const handleLogin = (email, password, history) => {
         history.push('/');
       })
       .catch(res => {
-        let errors = res.response.data.errors ? res.response.data.errors : { full_messages: ['Something went wrong'] }
-        if (Array.isArray(errors))
-          errors = { full_messages: errors }
-        const messages =
-          errors.map(message =>
-            <div>{message}</div>);
-        const { headers } = res;
-        dispatch(setHeaders(headers));
-        dispatch(setFlash(messages, 'red'));
+        //CURRENTLY BROKEN IF USER DOES NOT EXIST
+        // let errors = res.response.data.errors ? res.response.data.errors : { full_messages: ['Something went wrong'] }
+        // if (Array.isArray(errors))
+        //   errors = { full_messages: errors }
+        // const messages =
+        //   errors.map(message =>
+        //     <div>{message}</div>);
+        // const { headers } = res;
+        // dispatch(setHeaders(headers));
+        // dispatch(setFlash(messages, 'red'));
+        dispatch(setFlash('Incorrect email or password.', 'red'))
       });
   };
 };

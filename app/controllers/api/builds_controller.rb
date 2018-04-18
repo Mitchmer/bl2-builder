@@ -35,6 +35,6 @@ class Api::BuildsController < ApplicationController
     end
 
     def build_params
-      params.require(:build).permit(:name, :character, :description)
+      params.require(:build).permit(:name, :character, :description, :skills)
     end
 end

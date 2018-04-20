@@ -18,7 +18,6 @@ class Api::BuildsController < ApplicationController
   end
 
   def create
-    binding.pry
     build = current_user.builds.create(build_params)
     if build.save
       render json: build

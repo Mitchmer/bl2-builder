@@ -92,7 +92,7 @@ class BuildForm extends React.Component {
   characterOptions = [
     { key: 'maya', text: 'Maya, Siren', value: 'Maya' },
     // { key: 'axton', text: 'Axton, Commando', value: 'Axton' },
-    { key: 'zero', text: 'Zer0, Assassin', value: 'Zer0' },
+    // { key: 'zero', text: 'Zer0, Assassin', value: 'Zer0' },
     // { key: 'salvador', text: 'Salvador, Gunzerker', value: 'Salvador' },
     // { key: 'krieg', text: 'Krieg, Pycho', value: 'Krieg' },
     // { key: 'gaige', text: 'Gaige, Mechromancer', value: 'Gaige' },

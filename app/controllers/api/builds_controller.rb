@@ -18,6 +18,7 @@ class Api::BuildsController < ApplicationController
   end
 
   def create
+    binding.pry
     build = current_user.builds.create(build_params)
     if build.save
       render json: build
@@ -35,6 +36,6 @@ class Api::BuildsController < ApplicationController
     end
 
     def build_params
-      params.require(:build).permit(:name, :character, :description, :skills)
+      params.require(:build).permit(:name, :character, :description, :skills => {})
     end
 end

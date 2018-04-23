@@ -396,15 +396,16 @@ const skillsHex = {
 }
 
 const twoSkill = {
-  padding: '10%',
-  height: '65px',
+  padding: '0px 10% 0px 10%',
+  height: '63px',
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
 }
 
 const oneSkill = {
-  height: '65px',
+  padding: '0px',
+  height: '63px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',

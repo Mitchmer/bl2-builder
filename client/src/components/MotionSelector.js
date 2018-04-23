@@ -1,11 +1,9 @@
 import React from 'react'
 import { 
-  List, 
-  Header,
   Divider,
-  Loader,
-  Icon,
   Grid,
+  Header,
+  Popup,
 } from 'semantic-ui-react'
 import mayaskills from '../assets/images/mayaskills.png'
 import addCircle from '../assets/images/addcircle.png'
@@ -104,285 +102,456 @@ class MotionSelector extends React.Component {
         </Divider>
         <Grid.Row>
           <div style={twoSkill}>
-            <div style={skillWard}>
-              <div style={modifyBox}>
-                {
-                  maya.ward < 5 && level < 72 ?
-                    <img src={addCircle} style={circles} onClick={() => this.mayaSkill('ward', 1)}/>
-                  :
-                    <img src={addCircleDisabled} style={circles} />                
-                }
-                {
-                  maya.ward > 0 && tier2 < 1 ?
-                    <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('ward', -1)}/>
-                  :
-                    <img src={removeCircleDisabled} style={circles} />
-                }
-              </div>
-              <div style={counterBox}>
-                {maya.ward}/5
-              </div>
-            </div>
-            <div style={skillAccelerate}>
-              <div style={modifyBox}>
-                {
-                  maya.accelerate < 5 && level < 72 ?
-                    <img src={addCircle} style={circles} onClick={() => this.mayaSkill('accelerate', 1)}/>
-                  :
-                    <img src={addCircleDisabled} style={circles} />                
-                }
-                {
-                  maya.accelerate > 0 && tier2 < 1 ?
-                    <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('accelerate', -1)}/>
-                  :
-                    <img src={removeCircleDisabled} style={circles} />
-                }
-              </div>
-              <div style={counterBox}>
-                {maya.accelerate}/5
-              </div>
-            </div>
+            <Popup
+              trigger={
+                <div style={skillWard}>
+                  <div style={modifyBox}>
+                    {
+                      maya.ward < 5 && level < 72 ?
+                        <img src={addCircle} style={circles} onClick={() => this.mayaSkill('ward', 1)}/>
+                      :
+                        <img src={addCircleDisabled} style={circles} />                
+                    }
+                    {
+                      maya.ward > 0 && tier2 < 1 ?
+                        <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('ward', -1)}/>
+                      :
+                        <img src={removeCircleDisabled} style={circles} />
+                    }
+                  </div>
+                  <div style={counterBox}>
+                    {maya.ward}/5
+                  </div>
+                </div>
+              }
+              inverted
+              style={popupStyle}
+              content={
+                <div>
+                  <Header as="h4">
+                    Ward
+                  </Header>
+                  <div>
+                    {`Improves your Shield Capacity by `}<strong>{`${maya.ward * 5}%`}</strong>{` and Shield Recharge Delay by `}<strong>{`-${maya.ward * 8}%.`}</strong>
+                  </div>
+                </div>
+              }
+            />
+            <Popup
+              inverted
+              style={popupStyle}
+              trigger={
+                <div style={skillAccelerate}>
+                  <div style={modifyBox}>
+                    {
+                      maya.accelerate < 5 && level < 72 ?
+                        <img src={addCircle} style={circles} onClick={() => this.mayaSkill('accelerate', 1)}/>
+                      :
+                        <img src={addCircleDisabled} style={circles} />                
+                    }
+                    {
+                      maya.accelerate > 0 && tier2 < 1 ?
+                        <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('accelerate', -1)}/>
+                      :
+                        <img src={removeCircleDisabled} style={circles} />
+                    }
+                  </div>
+                  <div style={counterBox}>
+                    {maya.accelerate}/5
+                  </div>
+                </div>
+              }
+              content={
+                <div>
+                  <Header as="h4">
+                    Accelerate
+                  </Header>
+                  <div>
+                    {`Increases your Damage by `}<strong>{`${maya.accelerate * 3}%`}</strong>{` and Bulled Speed by `}<strong>{`${maya.accelerate * 4}%`}</strong>{` with all gun types.`}
+                  </div>
+                </div>
+              }
+            />
           </div>
         </Grid.Row>
         <Grid.Row>
           <div style={twoSkill}>
-            <div style={skillSuspension}>
-              <div style={modifyBox}>
-                {
-                  maya.suspension < 5 && level < 72 && motion >= 5 ?
-                    <img src={addCircle} style={circles} onClick={() => {
-                        this.mayaSkill('suspension', 1)
-                        this.tierModifier(2, 1)
-                      }}
-                    />
-                  :
-                    <img src={addCircleDisabled} style={circles} />                
-                }
-                {
-                  maya.suspension > 0 && tier3 < 1 ?
-                    <img src={removeCircle} style={circles} onClick={() => {
-                        this.mayaSkill('suspension', -1)
-                        this.tierModifier(2, -1)
-                      }}
-                    />
-                  :
-                    <img src={removeCircleDisabled} style={circles} />
-                }
-              </div>
-              <div style={counterBox}>
-                {maya.suspension}/5
-              </div>
-            </div>
-            <div style={skillKineticReflection}>
-              <div style={modifyBox}>
-                {
-                  maya.kinetic_reflection < 5 && level < 72 && motion >= 5 ?
-                    <img src={addCircle} style={circles} onClick={() => {
-                        this.mayaSkill('kinetic_reflection', 1)
-                        this.tierModifier(2, 1)
-                      }}
-                    />
-                  :
-                    <img src={addCircleDisabled} style={circles} />                
-                }
-                {
-                  maya.kinetic_reflection > 0 && tier3 < 1 ?
-                    <img src={removeCircle} style={circles} onClick={() => {
-                        this.mayaSkill('kinetic_reflection', -1)
-                        this.tierModifier(2, -1)
-                      }}
-                    />
-                  :
-                    <img src={removeCircleDisabled} style={circles} />
-                }
-              </div>
-              <div style={counterBox}>
-                  {maya.kinetic_reflection}/5
-              </div>
-            </div>
+            <Popup
+              inverted
+              style={popupStyle}
+              trigger={
+                <div style={skillSuspension}>
+                  <div style={modifyBox}>
+                    {
+                      maya.suspension < 5 && level < 72 && motion >= 5 ?
+                        <img src={addCircle} style={circles} onClick={() => {
+                            this.mayaSkill('suspension', 1)
+                            this.tierModifier(2, 1)
+                          }}
+                        />
+                      :
+                        <img src={addCircleDisabled} style={circles} />                
+                    }
+                    {
+                      maya.suspension > 0 && tier3 < 1 ?
+                        <img src={removeCircle} style={circles} onClick={() => {
+                            this.mayaSkill('suspension', -1)
+                            this.tierModifier(2, -1)
+                          }}
+                        />
+                      :
+                        <img src={removeCircleDisabled} style={circles} />
+                    }
+                  </div>
+                  <div style={counterBox}>
+                    {maya.suspension}/5
+                  </div>
+                </div>
+              }
+              content={
+                <div>
+                  <Header as="h4">
+                    Suspension
+                  </Header>
+                  <div>
+                    {`Increases the duration of Phaselock by `}<strong>{`${maya.suspension * .5}`}</strong>{` seconds.`}
+                  </div>
+                </div>
+              }
+            />
+            <Popup
+              inverted
+              style={popupStyle}
+              trigger={
+                <div style={skillKineticReflection}>
+                  <div style={modifyBox}>
+                    {
+                      maya.kinetic_reflection < 5 && level < 72 && motion >= 5 ?
+                        <img src={addCircle} style={circles} onClick={() => {
+                            this.mayaSkill('kinetic_reflection', 1)
+                            this.tierModifier(2, 1)
+                          }}
+                        />
+                      :
+                        <img src={addCircleDisabled} style={circles} />                
+                    }
+                    {
+                      maya.kinetic_reflection > 0 && tier3 < 1 ?
+                        <img src={removeCircle} style={circles} onClick={() => {
+                            this.mayaSkill('kinetic_reflection', -1)
+                            this.tierModifier(2, -1)
+                          }}
+                        />
+                      :
+                        <img src={removeCircleDisabled} style={circles} />
+                    }
+                  </div>
+                  <div style={counterBox}>
+                      {maya.kinetic_reflection}/5
+                  </div>
+                </div>
+              }
+              content={
+                <div>
+                  <Header as="h4">
+                    Kinetic Reflection
+                  </Header>
+                  <div>
+                    {`Kill Skill. After killing an enemy, you gain a `}<strong>{`100%`}</strong>{` chance to deflect enemy bullets, sending them flying toward nearby enemies doing `}<strong>{`${maya.kinetic_reflection * 20}%`}</strong>{` of the bullet's damage. You take `}<strong>{`${maya.kinetic_reflection * 10}%`}</strong>{` reduced damage from deflected bullets. Kinetic Reflection only works with bullets. This effect lasts for a short time.`}
+                  </div>
+                </div>
+              }
+            />
           </div>
         </Grid.Row>
         <Grid.Row>
           <div style={twoSkill}>
-            <div style={skillFleet}>
-              <div style={modifyBox}>
-                {
-                  maya.fleet < 5 && level < 72 && motion >= 10 ?
-                    <img src={addCircle} style={circles} onClick={() => {
-                        this.mayaSkill('fleet', 1)
-                        this.tierModifier(3, 1)
-                      }}
-                    />
-                  :
-                    <img src={addCircleDisabled} style={circles} />                
-                }
-                {
-                  maya.fleet > 0 && tier4 < 1 ?
-                    <img src={removeCircle} style={circles} onClick={() => {
-                        this.mayaSkill('fleet', -1)
-                        this.tierModifier(3, -1)
-                      }}
-                    />
-                  :
-                    <img src={removeCircleDisabled} style={circles} />
-                }
-              </div>
-              <div style={counterBox}>
-                {maya.fleet}/5
-              </div>
-            </div>
-            <div style={skillConverge}>
-              <div style={modifyBox}>
-                {
-                  maya.converge < 1 && level < 72 && motion >= 10 ?
-                    <img src={addCircle} style={circles} onClick={() => {
-                        this.mayaSkill('converge', 1)
-                        this.tierModifier(3, 1)
-                      }}
-                    />
-                  :
-                    <img src={addCircleDisabled} style={circles} />                
-                }
-                {
-                  maya.converge > 0 && tier4 < 1 ?
-                    <img src={removeCircle} style={circles} onClick={() => {
-                        this.mayaSkill('converge', -1)
-                        this.tierModifier(3, -1)
-                      }}
-                    />
-                  :
-                    <img src={removeCircleDisabled} style={circles} />
-                }
-              </div>
-              <div style={counterBox}>
-                {maya.converge}/1
-              </div>
-            </div>
-            <div style={skillInertia}>
-              <div style={modifyBox}>
-                {
-                  maya.inertia < 5 && level < 72 && motion >= 10 ?
-                    <img src={addCircle} style={circles} onClick={() => {
-                        this.mayaSkill('inertia', 1)
-                        this.tierModifier(3, 1)
-                      }}
-                    />
-                  :
-                    <img src={addCircleDisabled} style={circles} />                
-                }
-                {
-                  maya.inertia > 0 && tier4 < 1 ?
-                    <img src={removeCircle} style={circles} onClick={() => {
-                        this.mayaSkill('inertia', -1)
-                        this.tierModifier(3, -1)
-                      }}
-                    />
-                  :
-                    <img src={removeCircleDisabled} style={circles} />
-                }
-              </div>
-              <div style={counterBox}>
-                {maya.inertia}/5
-              </div>
-            </div>
+            <Popup
+              inverted
+              style={popupStyle}
+              trigger={
+
+                <div style={skillFleet}>
+                  <div style={modifyBox}>
+                    {
+                      maya.fleet < 5 && level < 72 && motion >= 10 ?
+                        <img src={addCircle} style={circles} onClick={() => {
+                            this.mayaSkill('fleet', 1)
+                            this.tierModifier(3, 1)
+                          }}
+                        />
+                      :
+                        <img src={addCircleDisabled} style={circles} />                
+                    }
+                    {
+                      maya.fleet > 0 && tier4 < 1 ?
+                        <img src={removeCircle} style={circles} onClick={() => {
+                            this.mayaSkill('fleet', -1)
+                            this.tierModifier(3, -1)
+                          }}
+                        />
+                      :
+                        <img src={removeCircleDisabled} style={circles} />
+                    }
+                  </div>
+                  <div style={counterBox}>
+                    {maya.fleet}/5
+                  </div>
+                </div>
+              }
+              content={
+                <div>
+                  <Header as="h4">
+                    Fleet
+                  </Header>
+                  <div>
+                    {`Your movement speed increases by `}<strong>{`${maya.fleet * 10}%`}</strong>{` while your shields are depleted.`}
+                  </div>
+                </div>
+              }
+            />
+            <Popup
+              inverted
+              style={popupStyle}
+              trigger={
+                <div style={skillConverge}>
+                  <div style={modifyBox}>
+                    {
+                      maya.converge < 1 && level < 72 && motion >= 10 ?
+                        <img src={addCircle} style={circles} onClick={() => {
+                            this.mayaSkill('converge', 1)
+                            this.tierModifier(3, 1)
+                          }}
+                        />
+                      :
+                        <img src={addCircleDisabled} style={circles} />                
+                    }
+                    {
+                      maya.converge > 0 && tier4 < 1 ?
+                        <img src={removeCircle} style={circles} onClick={() => {
+                            this.mayaSkill('converge', -1)
+                            this.tierModifier(3, -1)
+                          }}
+                        />
+                      :
+                        <img src={removeCircleDisabled} style={circles} />
+                    }
+                  </div>
+                  <div style={counterBox}>
+                    {maya.converge}/1
+                  </div>
+                </div>
+              }
+              content={
+                <div>
+                  <Header as="h4">
+                    Converge
+                  </Header>
+                  <div>
+                    {`Action Skill Augmentation. Your Phaselock ability now also pulls nearby enemies toward the original target. This deals a small amount of damage to the affected enemies.`}
+                  </div>
+                </div>
+              }
+            />
+            <Popup
+              inverted
+              style={popupStyle}
+              trigger={
+
+                <div style={skillInertia}>
+                  <div style={modifyBox}>
+                    {
+                      maya.inertia < 5 && level < 72 && motion >= 10 ?
+                        <img src={addCircle} style={circles} onClick={() => {
+                            this.mayaSkill('inertia', 1)
+                            this.tierModifier(3, 1)
+                          }}
+                        />
+                      :
+                        <img src={addCircleDisabled} style={circles} />                
+                    }
+                    {
+                      maya.inertia > 0 && tier4 < 1 ?
+                        <img src={removeCircle} style={circles} onClick={() => {
+                            this.mayaSkill('inertia', -1)
+                            this.tierModifier(3, -1)
+                          }}
+                        />
+                      :
+                        <img src={removeCircleDisabled} style={circles} />
+                    }
+                  </div>
+                  <div style={counterBox}>
+                    {maya.inertia}/5
+                  </div>
+                </div>
+              }
+              content={
+                <div>
+                  <Header as="h4">
+                    Inertia
+                  </Header>
+                  <div>
+                    {`Kill Skill. Killing an enemy causes your shields to quickly regenerate by `}<strong>{`${maya.inertia * .8}%`}</strong>{` of your Max Shields/sec and increases your Reload Speed by `}<strong>{`${maya.inertia * 10}%`}</strong>{` for a few seconds.`}
+                  </div>
+                </div>
+              }
+            />
           </div>
         </Grid.Row>
         <Grid.Row>
           <div style={oneSkill}>
-            <div style={skillQuicken}>
-              <div style={modifyBox}>
-                {
-                  maya.quicken < 5 && level < 72 && motion >= 15 ?
-                    <img src={addCircle} style={circles} onClick={() => {
-                        this.mayaSkill('quicken', 1)
-                        this.tierModifier(4, 1)
-                      }}
-                    />
-                  :
-                    <img src={addCircleDisabled} style={circles} />                
-                }
-                {
-                  maya.quicken > 0 && tier5 < 1 ?
-                    <img src={removeCircle} style={circles} onClick={() => {
-                        this.mayaSkill('quicken', -1)
-                        this.tierModifier(4, -1)
-                      }}
-                    />
-                  :
-                    <img src={removeCircleDisabled} style={circles} />
-                }
-              </div>
-              <div style={counterBox}>
-                {maya.quicken}/5
-              </div>
-            </div>
+            <Popup
+              inverted
+              style={popupStyle}
+              trigger={
+
+                <div style={skillQuicken}>
+                  <div style={modifyBox}>
+                    {
+                      maya.quicken < 5 && level < 72 && motion >= 15 ?
+                        <img src={addCircle} style={circles} onClick={() => {
+                            this.mayaSkill('quicken', 1)
+                            this.tierModifier(4, 1)
+                          }}
+                        />
+                      :
+                        <img src={addCircleDisabled} style={circles} />                
+                    }
+                    {
+                      maya.quicken > 0 && tier5 < 1 ?
+                        <img src={removeCircle} style={circles} onClick={() => {
+                            this.mayaSkill('quicken', -1)
+                            this.tierModifier(4, -1)
+                          }}
+                        />
+                      :
+                        <img src={removeCircleDisabled} style={circles} />
+                    }
+                  </div>
+                  <div style={counterBox}>
+                    {maya.quicken}/5
+                  </div>
+                </div>
+              }
+              content={
+                <div>
+                  <Header as="h4">
+                    Quicken
+                  </Header>
+                  <div>
+                    {`Increases the Cooldown Rate of your Phaselock ability by `}<strong>{`${maya.quicken * 6}%`}</strong>{`.`}
+                  </div>
+                </div>
+              }
+            />
           </div>
         </Grid.Row>
         <Grid.Row>
           <div style={oneSkill}>
-            <div style={skillSubSequence}>
-              <div style={modifyBox}>
-                {
-                  maya.sub_sequence < 5 && level < 72 && motion >= 20 ?
-                    <img src={addCircle} style={circles} onClick={() => {
-                        this.mayaSkill('sub_sequence', 1)
-                        this.tierModifier(5, 1)
-                      }}
-                    />
-                  :
-                    <img src={addCircleDisabled} style={circles} />                
-                }
-                {
-                  maya.sub_sequence > 0 && tier6 < 1 ?
-                    <img src={removeCircle} style={circles} onClick={() => {
-                        this.mayaSkill('sub_sequence', -1)
-                        this.tierModifier(5, -1)
-                      }}
-                    />
-                  :
-                    <img src={removeCircleDisabled} style={circles} />
-                }
-              </div>
-              <div style={counterBox}>
-                {maya.sub_sequence}/5
-              </div>
-            </div>
+            <Popup
+              inverted
+              style={popupStyle}
+              trigger={
+
+                <div style={skillSubSequence}>
+                  <div style={modifyBox}>
+                    {
+                      maya.sub_sequence < 5 && level < 72 && motion >= 20 ?
+                        <img src={addCircle} style={circles} onClick={() => {
+                            this.mayaSkill('sub_sequence', 1)
+                            this.tierModifier(5, 1)
+                          }}
+                        />
+                      :
+                        <img src={addCircleDisabled} style={circles} />                
+                    }
+                    {
+                      maya.sub_sequence > 0 && tier6 < 1 ?
+                        <img src={removeCircle} style={circles} onClick={() => {
+                            this.mayaSkill('sub_sequence', -1)
+                            this.tierModifier(5, -1)
+                          }}
+                        />
+                      :
+                        <img src={removeCircleDisabled} style={circles} />
+                    }
+                  </div>
+                  <div style={counterBox}>
+                    {maya.sub_sequence}/5
+                  </div>
+                </div>
+              }
+              content={
+                <div>
+                  <Header as="h4">
+                    Sub-Sequence
+                  </Header>
+                  <div>
+                    {`Action Skill Augmentation. When an enemy under the effects of your Phaselock dies, there is a `}<strong>{`${maya.sub_sequence * 20}%`}</strong>{` chance for your Phaselock ability to seek out and affect another target.`}
+                  </div>
+                </div>
+              }
+            />
           </div>
         </Grid.Row>
         <Grid.Row>
           <div style={oneSkill}>
-            <div style={skillThoughtlock}>
-              <div style={modifyBox}>
-                {
-                  maya.thoughtlock < 1 && level < 72 && motion >= 25 ?
-                    <img src={addCircle} style={circles} onClick={() => {
-                        this.mayaSkill('thoughtlock', 1)
-                        this.tierModifier(6, 1)
-                      }}
-                    />
-                  :
-                    <img src={addCircleDisabled} style={circles} />                
-                }
-                {
-                  maya.thoughtlock > 0 ?
-                    <img src={removeCircle} style={circles} onClick={() => {
-                        this.mayaSkill('thoughtlock', -1)
-                        this.tierModifier(6, -1)
-                      }}
-                    />
-                  :
-                    <img src={removeCircleDisabled} style={circles} />
-                }
-              </div>
-              <div style={counterBox}>
-                {maya.thoughtlock}/1
-              </div>
-            </div>
+            <Popup
+              inverted
+              style={popupStyle}
+              trigger={
+
+                <div style={skillThoughtlock}>
+                  <div style={modifyBox}>
+                    {
+                      maya.thoughtlock < 1 && level < 72 && motion >= 25 ?
+                        <img src={addCircle} style={circles} onClick={() => {
+                            this.mayaSkill('thoughtlock', 1)
+                            this.tierModifier(6, 1)
+                          }}
+                        />
+                      :
+                        <img src={addCircleDisabled} style={circles} />                
+                    }
+                    {
+                      maya.thoughtlock > 0 ?
+                        <img src={removeCircle} style={circles} onClick={() => {
+                            this.mayaSkill('thoughtlock', -1)
+                            this.tierModifier(6, -1)
+                          }}
+                        />
+                      :
+                        <img src={removeCircleDisabled} style={circles} />
+                    }
+                  </div>
+                  <div style={counterBox}>
+                    {maya.thoughtlock}/1
+                  </div>
+                </div>
+              }
+              content={
+                <div>
+                  <Header as="h4">
+                    Thoughtlock
+                  </Header>
+                  <div>
+                    {`Action Skill Alteration. Phaselock has a `}<strong>{`100%`}</strong>{` chance to cause enemies to turn on their friends instead of being locked down. Additionally, Phaselock's Duration is increased by `}<strong>{`${maya.thoughtlock * 4} seconds`}</strong>{`, and its Cooldown by  `}<strong>{`${maya.thoughtlock * 3} seconds`}</strong>{`.`}
+                  </div>
+                </div>
+              }
+            />
           </div>
         </Grid.Row>
       </div>
     )
   }
+}
+
+const popupStyle = {
+  borderRadius: 0,
+  opacity: 0.8,
+  padding: '1em',
 }
 
 const skillsSquare = {
@@ -398,15 +567,16 @@ const skillsHex = {
 }
 
 const twoSkill = {
-  padding: '10%',
-  height: '65px',
+  padding: '0px 10% 0px 10%',
+  height: '63px',
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
 }
 
 const oneSkill = {
-  height: '65px',
+  padding: '0px',
+  height: '63px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',

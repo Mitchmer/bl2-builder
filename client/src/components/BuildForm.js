@@ -98,6 +98,53 @@ class BuildForm extends React.Component {
     // { key: 'gaige', text: 'Gaige, Mechromancer', value: 'Gaige' },
   ]
 
+  resetSkills = (skill) => {
+    switch(skill) {
+      case 'maya':
+        this.setState({
+          skills: {
+            ...this.state.skills,
+            maya: {
+              ward: 0,
+              accelerate: 0,
+              kinetic_reflection: 0,
+              suspension: 0,
+              inertia: 0,
+              fleet: 0,
+              converge: 0,
+              quicken: 0,
+              sub_sequence: 0,
+              thoughtlock: 0,
+              minds_eye: 0,
+              sweet_release: 0,
+              restoration: 0,
+              wreck: 0,
+              elated: 0,
+              recompense: 0,
+              res: 0,
+              sustenance: 0,
+              life_tap: 0,
+              scorn: 0,
+              flicker: 0,
+              foresight: 0,
+              immolate: 0,
+              helios: 0,
+              chain_reaction: 0,
+              backdraft: 0,
+              cloud_kill: 0,
+              reaper: 0,
+              blight_phoenix: 0,
+              ruin: 0,
+            }
+          },
+          level: 5,
+          motion: 0,
+          harmony: 0,
+          cataclysm: 0,
+        })
+    }
+  }
+
   handleChange = (e) => {
     const { id, value } = e.target;
     this.setState({ [id]: value });
@@ -158,6 +205,7 @@ class BuildForm extends React.Component {
         return (
           <MayaSkillSelector 
             callbackState={this.callbackState} 
+            resetSkills={this.resetSkills}
             maya={this.state.skills.maya}
             level={level}
             harmony={harmony}

@@ -1,22 +1,62 @@
 import React from 'react'
 import { 
-  List, 
+  Loader,
+  Segment,
   Header,
   Divider,
-  Loader,
-  Icon,
   Grid,
+  Button,
 } from 'semantic-ui-react'
-import mayaskills from '../assets/images/mayaskills.png'
-import addCircle from '../assets/images/addcircle.png'
-import addCircleDisabled from '../assets/images/addcircle_disabled.png'
-import removeCircle from '../assets/images/removecircle.png'
-import removeCircleDisabled from '../assets/images/removecircle_disabled.png'
 import MotionSelector from './MotionSelector'
 import HarmonySelector from './HarmonySelector'
 import CataclysmSelector from './CataclysmSelector'
 
 class MayaSkillSelector extends React.Component {
+  state = {
+    motion2: 0,
+    motion3: 0,
+    motion4: 0,
+    motion5: 0,
+    motion6: 0,
+    harmony2: 0,
+    harmony3: 0,
+    harmony4: 0,
+    harmony5: 0,
+    harmony6: 0,
+    cataclysm2: 0,
+    cataclysm3: 0,
+    cataclysm4: 0,
+    cataclysm5: 0,
+    cataclysm6: 0,
+  }
+
+  resetTiers = () => {
+    this.setState({
+      motion2: 0,
+      motion3: 0,
+      motion4: 0,
+      motion5: 0,
+      motion6: 0,
+      harmony2: 0,
+      harmony3: 0,
+      harmony4: 0,
+      harmony5: 0,
+      harmony6: 0,
+      cataclysm2: 0,
+      cataclysm3: 0,
+      cataclysm4: 0,
+      cataclysm5: 0,
+      cataclysm6: 0,
+    })
+    this.props.resetSkills('maya')
+  }
+
+  setTiers = (incomingTier) => {
+    this.setState({
+      ...this.state,
+      ...incomingTier
+    })
+  }
 
   render() {
     const { 
@@ -28,6 +68,24 @@ class MayaSkillSelector extends React.Component {
       callbackState,
     } = this.props
 
+    const {
+      motion2,
+      motion3,
+      motion4,
+      motion5,
+      motion6,
+      harmony2,
+      harmony3,
+      harmony4,
+      harmony5,
+      harmony6,
+      cataclysm2,
+      cataclysm3,
+      cataclysm4,
+      cataclysm5,
+      cataclysm6,
+    } = this.state
+
     if (!maya)
       return <Loader active>Loading skills...</Loader>
     else {
@@ -38,36 +96,56 @@ class MayaSkillSelector extends React.Component {
               Level: {level}
             </Header>
           </Divider>
-          <Header as="h3">
+          <Header as="h3" textAlign="center">
             Maya
           </Header>
           <Grid columns={3} divided>
             <Grid.Column>
               <MotionSelector 
                 callbackState={callbackState}
+                setTiers={this.setTiers}
                 motion={motion} 
                 maya={maya}
                 level={level}
+                tier2={motion2}
+                tier3={motion3}
+                tier4={motion4}
+                tier5={motion5}
+                tier6={motion6}
               />
             </Grid.Column>
             <Grid.Column>
               <HarmonySelector
                 callbackState={callbackState}
+                setTiers={this.setTiers}
                 harmony={harmony}
                 maya={maya}
                 level={level}
+                tier2={harmony2}
+                tier3={harmony3}
+                tier4={harmony4}
+                tier5={harmony5}
+                tier6={harmony6}
               />
             </Grid.Column>
             <Grid.Column>
               <CataclysmSelector
                 callbackState={callbackState}
+                setTiers={this.setTiers}
                 cataclysm={cataclysm}
                 maya={maya}
                 level={level}
+                tier2={cataclysm2}
+                tier3={cataclysm3}
+                tier4={cataclysm4}
+                tier5={cataclysm5}
+                tier6={cataclysm6}
               />
             </Grid.Column>
           </Grid>
-          <Divider hidden />
+          <Divider horizontal>
+            <Segment onClick={this.resetTiers}>Reset</Segment>
+          </Divider>
         </div>
       )
     }

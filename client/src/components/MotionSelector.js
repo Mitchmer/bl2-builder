@@ -14,37 +14,31 @@ import removeCircle from '../assets/images/removecircle.png'
 import removeCircleDisabled from '../assets/images/removecircle_disabled.png'
 
 class MotionSelector extends React.Component {
-  state = {
-    tier2: 0,
-    tier3: 0,
-    tier4: 0,
-    tier5: 0,
-    tier6: 0,
-  }
 
   tierModifier = (tier, mod) => {
     const {
+      setTiers,
       tier2,
       tier3,
       tier4,
       tier5,
       tier6,
-    } = this.state
+    } = this.props
     switch(tier) {
       case 2:
-        this.setState({ tier2: tier2 + mod })
+        setTiers({ motion2: tier2 + mod })
         break
       case 3:
-        this.setState({ tier3: tier3 + mod })
+        setTiers({ motion3: tier3 + mod })
         break
       case 4:
-        this.setState({ tier4: tier4 + mod })
+        setTiers({ motion4: tier4 + mod })
         break
       case 5:
-        this.setState({ tier5: tier5 + mod })
+        setTiers({ motion5: tier5 + mod })
         break
       case 6:
-        this.setState({ tier6: tier6 + mod })
+        setTiers({ motion6: tier6 + mod })
         break
       default: break
     }
@@ -96,15 +90,12 @@ class MotionSelector extends React.Component {
       maya, 
       level, 
       motion,
-    } = this.props
-
-    const {
       tier2,
       tier3,
       tier4,
       tier5,
       tier6,
-    } = this.state
+    } = this.props
 
     return (
       <div>

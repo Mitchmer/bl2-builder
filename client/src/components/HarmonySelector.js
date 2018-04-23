@@ -1,10 +1,7 @@
 import React from 'react'
-import { 
-  List, 
+import {
   Header,
   Divider,
-  Loader,
-  Icon,
   Grid,
 } from 'semantic-ui-react'
 import mayaskills from '../assets/images/mayaskills.png'
@@ -14,37 +11,32 @@ import removeCircle from '../assets/images/removecircle.png'
 import removeCircleDisabled from '../assets/images/removecircle_disabled.png'
 
 class HarmonySelector extends React.Component {
-  state = {
-    tier2: 0,
-    tier3: 0,
-    tier4: 0,
-    tier5: 0,
-    tier6: 0,
-  }
 
   tierModifier = (tier, mod) => {
     const {
+      setTiers,
       tier2,
       tier3,
       tier4,
       tier5,
       tier6,
-    } = this.state
+    } = this.props
+
     switch(tier) {
       case 2:
-        this.setState({ tier2: tier2 + mod })
+        setTiers({ harmony2: tier2 + mod })
         break
       case 3:
-        this.setState({ tier3: tier3 + mod })
+        setTiers({ harmony3: tier3 + mod })
         break
       case 4:
-        this.setState({ tier4: tier4 + mod })
+        setTiers({ harmony4: tier4 + mod })
         break
       case 5:
-        this.setState({ tier5: tier5 + mod })
+        setTiers({ harmony5: tier5 + mod })
         break
       case 6:
-        this.setState({ tier6: tier6 + mod })
+        setTiers({ harmony6: tier6 + mod })
         break
       default: break
     }
@@ -96,15 +88,12 @@ class HarmonySelector extends React.Component {
       maya, 
       level, 
       harmony,
-    } = this.props
-
-    const {
       tier2,
       tier3,
       tier4,
       tier5,
       tier6,
-    } = this.state
+    } = this.props
 
     return (
       <div>

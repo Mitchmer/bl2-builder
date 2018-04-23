@@ -7,6 +7,11 @@ import {
   Icon,
   Grid,
 } from 'semantic-ui-react'
+import mayaskills from '../assets/images/mayaskills.png'
+import addCircle from '../assets/images/addcircle.png'
+import addCircleDisabled from '../assets/images/addcircle_disabled.png'
+import removeCircle from '../assets/images/removecircle.png'
+import removeCircleDisabled from '../assets/images/removecircle_disabled.png'
 
 class MayaSkillSelector extends React.Component {
 
@@ -18,7 +23,7 @@ class MayaSkillSelector extends React.Component {
 
     switch(skill) {
       case 'ward':
-        callbackState({ maya: {...maya,...maya, ward: maya.ward + modifier } }, 'motion' )
+        callbackState({ maya: {...maya, ward: maya.ward + modifier } }, 'motion' )
         break
       case 'accelerate':
         callbackState({ maya: {...maya, accelerate: maya.accelerate + modifier } }, 'motion' )
@@ -101,7 +106,7 @@ class MayaSkillSelector extends React.Component {
       case 'reaper':
         callbackState({ maya: {...maya, reaper: maya.reaper + modifier } }, 'cataclysm' )
         break
-      case 'blight_pheonix':
+      case 'blight_phoenix':
         callbackState({ maya: {...maya, blight_phoenix: maya.blight_phoenix + modifier } }, 'cataclysm' )
         break
       case 'ruin':
@@ -139,227 +144,232 @@ class MayaSkillSelector extends React.Component {
               Motion: {motion}
             </Divider>
             <Grid.Row>
-                <Grid.Column width={4}>
-                  Ward: 
-                </Grid.Column>
-                <Grid.Column width={4}>
-                  {maya.ward}/5
-                </Grid.Column>
-                <Grid.Column width={4}>
-                  {
-                    maya.ward < 5 && level < 72 &&
-                      <Icon name="add circle" onClick={() => this.mayaSkill('ward', 1)}/>                
-                  }
-                </Grid.Column>
-                <Grid.Column width={4}>
-                  {
-                    maya.ward > 0 &&
-                      <Icon name="minus circle" onClick={() => this.mayaSkill('ward', -1)}/>
-                  }
-                </Grid.Column>
-              </Grid.Row>
-              <Grid.Row>
-                <Grid.Column width={4}>
-                  Accelerate: 
-                </Grid.Column>
-                <Grid.Column width={4}>
-                  {maya.accelerate}/5
-                </Grid.Column>
-                <Grid.Column width={4}>
-                  {
-                    maya.accelerate < 5 && level < 72 &&
-                      <Icon name="add circle" onClick={() => this.mayaSkill('accelerate', 1)}/>
-                  }
-                </Grid.Column>
-                <Grid.Column width={4}>
-                  {
-                    maya.accelerate > 0 &&
-                      <Icon name="minus circle" onClick={() => this.mayaSkill('accelerate', -1)}/>                
-                  }            
-                </Grid.Column>
-              </Grid.Row>
+              <div style={twoSkill}>
+                <div style={skillWard}>
+                  <div style={modifyBox}>
+                    {
+                      maya.ward < 5 && level < 72 ?
+                        <img src={addCircle} style={circles} onClick={() => this.mayaSkill('ward', 1)}/>
+                      :
+                        <img src={addCircleDisabled} style={circles} />                
+                    }
+                    {
+                      maya.ward > 0 ?
+                        <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('ward', -1)}/>
+                      :
+                        <img src={removeCircleDisabled} style={circles} />
+                    }
+                  </div>
+                  <div style={counterBox}>
+                    {maya.ward}/5
+                  </div>
+                </div>
+                <div style={skillAccelerate}>
+                  <div style={modifyBox}>
+                    {
+                      maya.accelerate < 5 && level < 72 ?
+                        <img src={addCircle} style={circles} onClick={() => this.mayaSkill('accelerate', 1)}/>
+                      :
+                        <img src={addCircleDisabled} style={circles} />                
+                    }
+                    {
+                      maya.accelerate > 0 ?
+                        <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('accelerate', -1)}/>
+                      :
+                        <img src={removeCircleDisabled} style={circles} />
+                    }
+                  </div>
+                  <div style={counterBox}>
+                    {maya.accelerate}/5
+                  </div>
+                </div>
+              </div>
+            </Grid.Row>
               {
                 motion >= 5 &&
                   <Grid.Row>
-                    <Grid.Column width={4}>
-                      Suspension: 
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      {maya.suspension}/5
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      {
-                        maya.suspension < 5 && level < 72 &&
-                          <Icon name="add circle" onClick={() => this.mayaSkill('suspension', 1)}/>                
-                      }
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      {
-                        maya.suspension > 0 &&
-                          <Icon name="minus circle" onClick={() => this.mayaSkill('suspension', -1)}/>                
-                      }
-                    </Grid.Column>
+                    <div style={twoSkill}>
+                      <div style={skillSuspension}>
+                        <div style={modifyBox}>
+                          {
+                            maya.suspension < 5 && level < 72 ?
+                              <img src={addCircle} style={circles} onClick={() => this.mayaSkill('suspension', 1)}/>
+                            :
+                              <img src={addCircleDisabled} style={circles} />                
+                          }
+                          {
+                            maya.suspension > 0 ?
+                              <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('suspension', -1)}/>
+                            :
+                              <img src={removeCircleDisabled} style={circles} />
+                          }
+                        </div>
+                        <div style={counterBox}>
+                          {maya.suspension}/5
+                        </div>
+                      </div>
+                      <div style={skillKineticReflection}>
+                        <div style={modifyBox}>
+                          {
+                            maya.kinetic_reflection < 5 && level < 72 ?
+                              <img src={addCircle} style={circles} onClick={() => this.mayaSkill('kinetic_reflection', 1)}/>
+                            :
+                              <img src={addCircleDisabled} style={circles} />                
+                          }
+                          {
+                            maya.kinetic_reflection > 0 ?
+                              <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('kinetic_reflection', -1)}/>
+                            :
+                              <img src={removeCircleDisabled} style={circles} />
+                          }
+                        </div>
+                        <div style={counterBox}>
+                          {maya.kinetic_reflection}/5
+                        </div>
+                      </div>
+                    </div>
                   </Grid.Row>
               }
-              { 
-                motion >= 5 &&
-                  <Grid.Row>
-                    <Grid.Column width={4}>
-                      Kinetic Reflection: 
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      {maya.kinetic_reflection}/5
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      {
-                        maya.kinetic_reflection < 5 && level < 72 &&
-                          <Icon name="add circle" onClick={() => this.mayaSkill('kinetic_reflection', 1)}/>
-                      }
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      {
-                        maya.kinetic_reflection > 0 &&
-                          <Icon name="minus circle" onClick={() => this.mayaSkill('kinetic_reflection', -1)}/>                
-                      }            
-                    </Grid.Column>
-                  </Grid.Row>
-              }
-              { 
+              {
                 motion >= 10 &&
                   <Grid.Row>
-                    <Grid.Column width={4}>
-                      Fleet: 
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      {maya.fleet}/5
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      {
-                        maya.fleet < 5 && level < 72 &&
-                          <Icon name="add circle" onClick={() => this.mayaSkill('fleet', 1)}/>
-                      }
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      {
-                        maya.fleet > 0 &&
-                          <Icon name="minus circle" onClick={() => this.mayaSkill('fleet', -1)}/>                
-                      }            
-                    </Grid.Column>
+                    <div style={twoSkill}>
+                      <div style={skillFleet}>
+                        <div style={modifyBox}>
+                          {
+                            maya.fleet < 5 && level < 72 ?
+                              <img src={addCircle} style={circles} onClick={() => this.mayaSkill('fleet', 1)}/>
+                            :
+                              <img src={addCircleDisabled} style={circles} />                
+                          }
+                          {
+                            maya.fleet > 0 ?
+                              <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('fleet', -1)}/>
+                            :
+                              <img src={removeCircleDisabled} style={circles} />
+                          }
+                        </div>
+                        <div style={counterBox}>
+                          {maya.fleet}/5
+                        </div>
+                      </div>
+                      <div style={skillConverge}>
+                        <div style={modifyBox}>
+                          {
+                            maya.converge < 1 && level < 72 ?
+                              <img src={addCircle} style={circles} onClick={() => this.mayaSkill('converge', 1)}/>
+                            :
+                              <img src={addCircleDisabled} style={circles} />                
+                          }
+                          {
+                            maya.converge > 0 ?
+                              <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('converge', -1)}/>
+                            :
+                              <img src={removeCircleDisabled} style={circles} />
+                          }
+                        </div>
+                        <div style={counterBox}>
+                          {maya.converge}/1
+                        </div>
+                      </div>
+                      <div style={skillInertia}>
+                        <div style={modifyBox}>
+                          {
+                            maya.inertia < 5 && level < 72 ?
+                              <img src={addCircle} style={circles} onClick={() => this.mayaSkill('inertia', 1)}/>
+                            :
+                              <img src={addCircleDisabled} style={circles} />                
+                          }
+                          {
+                            maya.inertia > 0 ?
+                              <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('inertia', -1)}/>
+                            :
+                              <img src={removeCircleDisabled} style={circles} />
+                          }
+                        </div>
+                        <div style={counterBox}>
+                          {maya.inertia}/5
+                        </div>
+                      </div>
+                    </div>
                   </Grid.Row>
               }
-              { 
-                motion >= 10 &&
-                  <Grid.Row>
-                    <Grid.Column width={4}>
-                      Converge: 
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      {maya.converge}/1
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      {
-                        maya.converge < 1 && level < 72 &&
-                          <Icon name="add circle" onClick={() => this.mayaSkill('converge', 1)}/>
-                      }
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      {
-                        maya.converge > 0 &&
-                          <Icon name="minus circle" onClick={() => this.mayaSkill('converge', -1)}/>                
-                      }            
-                    </Grid.Column>
-                  </Grid.Row>
-              }
-              { 
-                motion >= 10 &&
-                  <Grid.Row>
-                    <Grid.Column width={4}>
-                      Inertia: 
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      {maya.inertia}/5
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      {
-                        maya.inertia < 5 && level < 72 &&
-                          <Icon name="add circle" onClick={() => this.mayaSkill('inertia', 1)}/>
-                      }
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      {
-                        maya.inertia > 0 &&
-                          <Icon name="minus circle" onClick={() => this.mayaSkill('inertia', -1)}/>                
-                      }            
-                    </Grid.Column>
-                  </Grid.Row>
-              }
-              { 
+              {
                 motion >= 15 &&
                   <Grid.Row>
-                    <Grid.Column width={4}>
-                      Quicken: 
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      {maya.quicken}/5
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      {
-                        maya.quicken < 5 && level < 72 &&
-                          <Icon name="add circle" onClick={() => this.mayaSkill('quicken', 1)}/>
-                      }
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      {
-                        maya.quicken > 0 &&
-                          <Icon name="minus circle" onClick={() => this.mayaSkill('quicken', -1)}/>                
-                      }            
-                    </Grid.Column>
+                    <div style={oneSkill}>
+                      <div style={skillQuicken}>
+                        <div style={modifyBox}>
+                          {
+                            maya.quicken < 5 && level < 72 ?
+                              <img src={addCircle} style={circles} onClick={() => this.mayaSkill('quicken', 1)}/>
+                            :
+                              <img src={addCircleDisabled} style={circles} />                
+                          }
+                          {
+                            maya.quicken > 0 ?
+                              <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('quicken', -1)}/>
+                            :
+                              <img src={removeCircleDisabled} style={circles} />
+                          }
+                        </div>
+                        <div style={counterBox}>
+                          {maya.quicken}/5
+                        </div>
+                      </div>
+                    </div>
                   </Grid.Row>
               }
-              { 
+              {
                 motion >= 20 &&
                   <Grid.Row>
-                    <Grid.Column width={4}>
-                      Sub-Sequence: 
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      {maya.sub_sequence}/5
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      {
-                        maya.sub_sequence < 5 && level < 72 &&
-                          <Icon name="add circle" onClick={() => this.mayaSkill('sub_sequence', 1)}/>
-                      }
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      {
-                        maya.sub_sequence > 0 &&
-                          <Icon name="minus circle" onClick={() => this.mayaSkill('sub_sequence', -1)}/>                
-                      }            
-                    </Grid.Column>
+                    <div style={oneSkill}>
+                      <div style={skillSubSequence}>
+                        <div style={modifyBox}>
+                          {
+                            maya.sub_sequence < 5 && level < 72 ?
+                              <img src={addCircle} style={circles} onClick={() => this.mayaSkill('sub_sequence', 1)}/>
+                            :
+                              <img src={addCircleDisabled} style={circles} />                
+                          }
+                          {
+                            maya.sub_sequence > 0 ?
+                              <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('sub_sequence', -1)}/>
+                            :
+                              <img src={removeCircleDisabled} style={circles} />
+                          }
+                        </div>
+                        <div style={counterBox}>
+                          {maya.sub_sequence}/5
+                        </div>
+                      </div>
+                    </div>
                   </Grid.Row>
               }
-              { 
+              {
                 motion >= 25 &&
                   <Grid.Row>
-                    <Grid.Column width={4}>
-                      Thoughtlock: 
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      {maya.thoughtlock}/1
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      {
-                        maya.thoughtlock < 1 && level < 72 &&
-                          <Icon name="add circle" onClick={() => this.mayaSkill('thoughtlock', 1)}/>
-                      }
-                    </Grid.Column>
-                    <Grid.Column width={4}>
-                      {
-                        maya.thoughtlock > 0 &&
-                          <Icon name="minus circle" onClick={() => this.mayaSkill('thoughtlock', -1)}/>                
-                      }            
-                    </Grid.Column>
+                    <div style={oneSkill}>
+                      <div style={skillThoughtlock}>
+                        <div style={modifyBox}>
+                          {
+                            maya.thoughtlock < 1 && level < 72 ?
+                              <img src={addCircle} style={circles} onClick={() => this.mayaSkill('thoughtlock', 1)}/>
+                            :
+                              <img src={addCircleDisabled} style={circles} />                
+                          }
+                          {
+                            maya.thoughtlock > 0 ?
+                              <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('thoughtlock', -1)}/>
+                            :
+                              <img src={removeCircleDisabled} style={circles} />
+                          }
+                        </div>
+                        <div style={counterBox}>
+                          {maya.thoughtlock}/1
+                        </div>
+                      </div>
+                    </div>
                   </Grid.Row>
               }
             </Grid.Column>
@@ -827,6 +837,202 @@ class MayaSkillSelector extends React.Component {
       )
     }
   }
+}
+
+const skillsSquare = {
+  backgroundImage: `url(${mayaskills})`,
+  width: '52px',
+  height: '53px',
+}
+
+const skillsHex = {
+  backgroundImage: `url(${mayaskills})`,
+  width: '55px',
+  height: '63px',
+}
+
+const twoSkill = {
+  padding: '10%',
+  height: '65px',
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+}
+
+const oneSkill = {
+  height: '65px',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+}
+
+const modifyBox = {
+  height: '50%',
+  display: 'flex',
+  justifyContent: 'space-between',
+}
+
+const counterBox = {
+  height: '50%',
+  display: 'flex',
+  justifyContent: 'flex-end',
+  alignItems: 'flex-end',
+  color: 'white',
+}
+
+const circles = {
+  height: '20px',
+  width: '20px',
+}
+
+const skillWard = {
+  ...skillsSquare,
+  backgroundPosition: '-315px -267px',
+}
+
+const skillAccelerate = {
+  ...skillsSquare,
+  backgroundPosition: '-356px -5px',
+}
+
+const skillSuspension = {
+  ...skillsSquare,
+  backgroundPosition: '-356px -68px',
+}
+
+const skillKineticReflection = {
+  ...skillsHex,
+  backgroundPosition: '-318px -131px',
+}
+
+const skillFleet = {
+  ...skillsSquare,
+  backgroundPosition: '-377px -204px',
+}
+
+const skillConverge = {
+  ...skillsSquare,
+  backgroundPosition: '-377px -267px',
+}
+
+const skillInertia = {
+  ...skillsHex,
+  backgroundPosition: '-5px -330px',
+}
+
+const skillQuicken = {
+  ...skillsSquare,
+  backgroundPosition: '-70px -330px',
+}
+
+const skillSubSequence = {
+  ...skillsSquare,
+  backgroundPosition: '-132px -330px',
+}
+
+const skillThoughtlock = {
+  ...skillsSquare,
+  backgroundPosition: '-194px -330px',
+}
+
+const skillMindsEye = {
+  ...skillsSquare,
+  backgroundPosition: '-67px -204px',
+}
+
+const skillSweetRelease = {
+  ...skillsSquare,
+  backgroundPosition: '-129px -204px',
+}
+
+const skillRestoration = {
+  ...skillsSquare,
+  backgroundPosition: '-191px -204px',
+}
+
+const skillWreck = {
+  ...skillsSquare,
+  backgroundPosition: '-253px -204px',
+}
+
+const skillElated = {
+  ...skillsSquare,
+  backgroundPosition: '-315px -204px',
+}
+
+const skillRes = {
+  ...skillsSquare,
+  backgroundPosition: '-5px -267px',
+}
+
+const skillRecompense = {
+  ...skillsSquare,
+  backgroundPosition: '-67px -267px',
+}
+
+const skillSustenance = {
+  ...skillsSquare,
+  backgroundPosition: '-129px -267px',
+}
+
+const skillLifeTap = {
+  ...skillsSquare,
+  backgroundPosition: '-191px -267px',
+}
+
+const skillScorn = {
+  ...skillsSquare,
+  backgroundPosition: '-253px -267px',
+}
+
+const skillFlicker = {
+  ...skillsSquare,
+  backgroundPosition: '-232px -5px',
+}
+
+const skillForesight = {
+  ...skillsSquare,
+  backgroundPosition: '-294px -5px',
+}
+
+const skillImmolate = {
+  ...skillsSquare,
+  backgroundPosition: '-232px -68px',
+}
+
+const skillHelios = {
+  ...skillsSquare,
+  backgroundPosition: '-294px -68px',
+}
+
+const skillChainReaction = {
+  ...skillsSquare,
+  backgroundPosition: '-5px -131px',
+}
+
+const skillCloudKill = {
+  ...skillsSquare,
+  backgroundPosition: '-67px -131px',
+}
+
+const skillBackdraft = {
+  ...skillsSquare,
+  backgroundPosition: '-129px -131px',
+}
+
+const skillReaper = {
+  ...skillsSquare,
+  backgroundPosition: '-191px -131px',
+}
+
+const skillBlightPhoenix = {
+  ...skillsHex,
+  backgroundPosition: '-253px -131px',
+}
+
+const skillRuin = {
+  ...skillsSquare,
+  backgroundPosition: '-5px -204px',
 }
 
 export default MayaSkillSelector

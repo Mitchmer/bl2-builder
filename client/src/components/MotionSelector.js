@@ -10,6 +10,8 @@ import addCircle from '../assets/images/addcircle.png'
 import addCircleDisabled from '../assets/images/addcircle_disabled.png'
 import removeCircle from '../assets/images/removecircle.png'
 import removeCircleDisabled from '../assets/images/removecircle_disabled.png'
+import styled from 'styled-components'
+import greenBackground from '../assets/images/grnbkdline.png'
 
 class MotionSelector extends React.Component {
 
@@ -82,8 +84,11 @@ class MotionSelector extends React.Component {
       default: break
     }
   }
+
+  
   
   render() {
+
     const { 
       maya, 
       level, 
@@ -95,11 +100,58 @@ class MotionSelector extends React.Component {
       tier6,
     } = this.props
 
+    const Wrapper = styled.div`
+      width: 247px;
+      height: 396px;
+      padding: 10px 0 0 0;
+      background-size: 2600%;
+      background-image: url('${greenBackground}');
+      background-position: ${ f => {
+        if (motion === 0)
+          return '0 0'
+        else if (motion >= 25)
+          return '100% 0'
+        else {
+          switch(motion) {
+            case 1: return '4% 0'
+            case 2: return '8% 0'
+            case 3: return '12% 0'
+            case 4: return '16% 0'
+            case 5: return '20% 0'
+            case 6: return '24% 0'
+            case 7: return '28% 0'
+            case 8: return '32% 0'
+            case 9: return '36% 0'
+            case 10: return '40% 0'
+            case 11: return '44% 0'
+            case 12: return '48% 0'
+            case 13: return '52% 0'
+            case 14: return '56% 0'
+            case 15: return '60% 0'
+            case 16: return '64% 0'
+            case 17: return '68% 0'
+            case 18: return '72% 0'
+            case 19: return '76% 0'
+            case 20: return '80% 0'
+            case 21: return '84% 0'
+            case 22: return '88% 0'
+            case 23: return '92% 0'
+            case 24: return '96% 0'
+          }
+        }
+      }}
+    `
+
+    // const Wrapper = styled.div`
+    //   padding: 10px;
+    //   background-image: url('${greenTier1}');
+    //   background-size: 100% 400px;
+    //   background-repeat: no-repeat;
+    //   background-position: center;
+    // `
+
     return (
-      <div>
-        <Divider horizontal>
-          Motion: {motion}
-        </Divider>
+      <Wrapper>
         <Grid.Row>
           <div style={twoSkill}>
             <Popup
@@ -543,7 +595,7 @@ class MotionSelector extends React.Component {
             />
           </div>
         </Grid.Row>
-      </div>
+      </Wrapper>
     )
   }
 }
@@ -567,7 +619,7 @@ const skillsHex = {
 }
 
 const twoSkill = {
-  padding: '0px 10% 0px 10%',
+  padding: '0px 15%',
   height: '63px',
   display: 'flex',
   justifyContent: 'space-between',

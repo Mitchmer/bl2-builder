@@ -10,6 +10,7 @@ import {
 import MotionSelector from './MotionSelector'
 import HarmonySelector from './HarmonySelector'
 import CataclysmSelector from './CataclysmSelector'
+import styled from 'styled-components'
 
 class MayaSkillSelector extends React.Component {
   state = {
@@ -100,7 +101,10 @@ class MayaSkillSelector extends React.Component {
             Maya
           </Header>
           <Grid columns={3} divided>
-            <Grid.Column>
+            <StyledGridColumn>
+              <Divider horizontal>
+                Motion: {motion}
+              </Divider>
               <MotionSelector 
                 callbackState={callbackState}
                 setTiers={this.setTiers}
@@ -113,8 +117,11 @@ class MayaSkillSelector extends React.Component {
                 tier5={motion5}
                 tier6={motion6}
               />
-            </Grid.Column>
-            <Grid.Column>
+            </StyledGridColumn>
+            <StyledGridColumn>
+              <Divider horizontal>
+                Harmony: {harmony}
+              </Divider>
               <HarmonySelector
                 callbackState={callbackState}
                 setTiers={this.setTiers}
@@ -127,8 +134,11 @@ class MayaSkillSelector extends React.Component {
                 tier5={harmony5}
                 tier6={harmony6}
               />
-            </Grid.Column>
-            <Grid.Column>
+            </StyledGridColumn>
+            <StyledGridColumn>
+              <Divider horizontal>
+                Cataclysm: {cataclysm}
+              </Divider>
               <CataclysmSelector
                 callbackState={callbackState}
                 setTiers={this.setTiers}
@@ -141,7 +151,7 @@ class MayaSkillSelector extends React.Component {
                 tier5={cataclysm5}
                 tier6={cataclysm6}
               />
-            </Grid.Column>
+            </StyledGridColumn>
           </Grid>
           <Divider horizontal>
             <Segment onClick={this.resetTiers}>Reset</Segment>
@@ -151,5 +161,12 @@ class MayaSkillSelector extends React.Component {
     }
   }
 }
+
+const StyledGridColumn = styled(Grid.Column)`
+  padding: 0 0 0 0 !important;
+  display: flex !important;
+  flex-direction: column !important
+  align-items: center !important;
+`
 
 export default MayaSkillSelector

@@ -14,6 +14,41 @@ import removeCircle from '../assets/images/removecircle.png'
 import removeCircleDisabled from '../assets/images/removecircle_disabled.png'
 
 class HarmonySelector extends React.Component {
+  state = {
+    tier2: 0,
+    tier3: 0,
+    tier4: 0,
+    tier5: 0,
+    tier6: 0,
+  }
+
+  tierModifier = (tier, mod) => {
+    const {
+      tier2,
+      tier3,
+      tier4,
+      tier5,
+      tier6,
+    } = this.state
+    switch(tier) {
+      case 2:
+        this.setState({ tier2: tier2 + mod })
+        break
+      case 3:
+        this.setState({ tier3: tier3 + mod })
+        break
+      case 4:
+        this.setState({ tier4: tier4 + mod })
+        break
+      case 5:
+        this.setState({ tier5: tier5 + mod })
+        break
+      case 6:
+        this.setState({ tier6: tier6 + mod })
+        break
+      default: break
+    }
+  }
 
   mayaSkill = (skill, modifier) => {
     const { 
@@ -63,6 +98,14 @@ class HarmonySelector extends React.Component {
       harmony,
     } = this.props
 
+    const {
+      tier2,
+      tier3,
+      tier4,
+      tier5,
+      tier6,
+    } = this.state
+
     return (
       <div>
         <Divider horizontal>
@@ -79,7 +122,7 @@ class HarmonySelector extends React.Component {
                     <img src={addCircleDisabled} style={circles} />                
                 }
                 {
-                  maya.minds_eye > 0 ?
+                  maya.minds_eye > 0 && tier2 < 1 ?
                     <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('minds_eye', -1)}/>
                   :
                     <img src={removeCircleDisabled} style={circles} />
@@ -98,7 +141,7 @@ class HarmonySelector extends React.Component {
                     <img src={addCircleDisabled} style={circles} />                
                 }
                 {
-                  maya.sweet_release > 0 ?
+                  maya.sweet_release > 0 && tier2 < 1 ?
                     <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('sweet_release', -1)}/>
                   :
                     <img src={removeCircleDisabled} style={circles} />
@@ -116,13 +159,21 @@ class HarmonySelector extends React.Component {
               <div style={modifyBox}>
                 {
                   maya.restoration < 5 && level < 72 && harmony >= 5 ?
-                    <img src={addCircle} style={circles} onClick={() => this.mayaSkill('restoration', 1)}/>
+                    <img src={addCircle} style={circles} onClick={() => {
+                        this.mayaSkill('restoration', 1)
+                        this.tierModifier(2, 1)
+                      }}
+                    />
                   :
                     <img src={addCircleDisabled} style={circles} />                
                 }
                 {
-                  maya.restoration > 0 ?
-                    <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('restoration', -1)}/>
+                  maya.restoration > 0 && tier3 < 1 ?
+                    <img src={removeCircle} style={circles} onClick={() => {
+                        this.mayaSkill('restoration', -1)
+                        this.tierModifier(2, -1)
+                      }}
+                    />
                   :
                     <img src={removeCircleDisabled} style={circles} />
                 }
@@ -135,13 +186,21 @@ class HarmonySelector extends React.Component {
               <div style={modifyBox}>
                 {
                   maya.wreck < 5 && level < 72 && harmony >= 5 ?
-                    <img src={addCircle} style={circles} onClick={() => this.mayaSkill('wreck', 1)}/>
+                    <img src={addCircle} style={circles} onClick={() => {
+                        this.mayaSkill('wreck', 1)
+                        this.tierModifier(2, 1)
+                      }}
+                    />
                   :
                     <img src={addCircleDisabled} style={circles} />                
                 }
                 {
-                  maya.wreck > 0 ?
-                    <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('wreck', -1)}/>
+                  maya.wreck > 0 && tier3 < 1 ?
+                    <img src={removeCircle} style={circles} onClick={() => {
+                        this.mayaSkill('wreck', -1)
+                        this.tierModifier(2, -1)
+                      }}
+                    />
                   :
                     <img src={removeCircleDisabled} style={circles} />
                 }
@@ -158,13 +217,21 @@ class HarmonySelector extends React.Component {
               <div style={modifyBox}>
                 {
                   maya.elated < 5 && level < 72 && harmony >= 10 ?
-                    <img src={addCircle} style={circles} onClick={() => this.mayaSkill('elated', 1)}/>
+                    <img src={addCircle} style={circles} onClick={() => {
+                        this.mayaSkill('elated', 1)
+                        this.tierModifier(3, 1)
+                      }}
+                    />
                   :
                     <img src={addCircleDisabled} style={circles} />                
                 }
                 {
-                  maya.elated > 0 ?
-                    <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('elated', -1)}/>
+                  maya.elated > 0 && tier4 < 1 ?
+                    <img src={removeCircle} style={circles} onClick={() => {
+                        this.mayaSkill('elated', -1)
+                        this.tierModifier(3, -1)
+                      }}
+                    />
                   :
                     <img src={removeCircleDisabled} style={circles} />
                 }
@@ -177,13 +244,21 @@ class HarmonySelector extends React.Component {
               <div style={modifyBox}>
                 {
                   maya.res < 1 && level < 72 && harmony >= 10 ?
-                    <img src={addCircle} style={circles} onClick={() => this.mayaSkill('res', 1)}/>
+                    <img src={addCircle} style={circles} onClick={() => {
+                        this.mayaSkill('res', 1)
+                        this.tierModifier(3, 1)
+                      }}
+                    />
                   :
                     <img src={addCircleDisabled} style={circles} />                
                 }
                 {
-                  maya.res > 0 ?
-                    <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('res', -1)}/>
+                  maya.res > 0 && tier4 < 1 ?
+                    <img src={removeCircle} style={circles} onClick={() => {
+                        this.mayaSkill('res', -1)
+                        this.tierModifier(3, -1)
+                      }}
+                    />
                   :
                     <img src={removeCircleDisabled} style={circles} />
                 }
@@ -196,13 +271,21 @@ class HarmonySelector extends React.Component {
               <div style={modifyBox}>
                 {
                   maya.recompense < 5 && level < 72 && harmony >= 10 ?
-                    <img src={addCircle} style={circles} onClick={() => this.mayaSkill('recompense', 1)}/>
+                    <img src={addCircle} style={circles} onClick={() => {
+                        this.mayaSkill('recompense', 1)
+                        this.tierModifier(3, 1)
+                      }}
+                    />
                   :
                     <img src={addCircleDisabled} style={circles} />                
                 }
                 {
-                  maya.recompense > 0 ?
-                    <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('recompense', -1)}/>
+                  maya.recompense > 0 && tier4 < 1 ?
+                    <img src={removeCircle} style={circles} onClick={() => {
+                        this.mayaSkill('recompense', -1)
+                        this.tierModifier(3, -1)
+                      }}
+                    />
                   :
                     <img src={removeCircleDisabled} style={circles} />
                 }
@@ -219,13 +302,21 @@ class HarmonySelector extends React.Component {
               <div style={modifyBox}>
                 {
                   maya.sustenance < 5 && level < 72 && harmony >= 15 ?
-                    <img src={addCircle} style={circles} onClick={() => this.mayaSkill('sustenance', 1)}/>
+                    <img src={addCircle} style={circles} onClick={() => {
+                        this.mayaSkill('sustenance', 1)
+                        this.tierModifier(4, 1)
+                      }}
+                    />
                   :
                     <img src={addCircleDisabled} style={circles} />                
                 }
                 {
-                  maya.sustenance > 0 ?
-                    <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('sustenance', -1)}/>
+                  maya.sustenance > 0 && tier5 < 1 ?
+                    <img src={removeCircle} style={circles} onClick={() => {
+                        this.mayaSkill('sustenance', -1)
+                        this.tierModifier(4, -1)
+                      }}
+                    />
                   :
                     <img src={removeCircleDisabled} style={circles} />
                 }
@@ -242,13 +333,21 @@ class HarmonySelector extends React.Component {
               <div style={modifyBox}>
                 {
                   maya.life_tap < 5 && level < 72 && harmony >= 20 ?
-                    <img src={addCircle} style={circles} onClick={() => this.mayaSkill('life_tap', 1)}/>
+                    <img src={addCircle} style={circles} onClick={() => {
+                        this.mayaSkill('life_tap', 1)
+                        this.tierModifier(5, 1)
+                      }}
+                    />
                   :
                     <img src={addCircleDisabled} style={circles} />                
                 }
                 {
-                  maya.life_tap > 0 ?
-                    <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('life_tap', -1)}/>
+                  maya.life_tap > 0 && tier6 < 1 ?
+                    <img src={removeCircle} style={circles} onClick={() => {
+                        this.mayaSkill('life_tap', -1)
+                        this.tierModifier(5, -1)
+                      }}
+                    />
                   :
                     <img src={removeCircleDisabled} style={circles} />
                 }
@@ -265,13 +364,21 @@ class HarmonySelector extends React.Component {
               <div style={modifyBox}>
                 {
                   maya.scorn < 1 && level < 72 && harmony >= 25 ?
-                    <img src={addCircle} style={circles} onClick={() => this.mayaSkill('scorn', 1)}/>
+                    <img src={addCircle} style={circles} onClick={() => {
+                        this.mayaSkill('scorn', 1)
+                        this.tierModifier(6, 1)
+                      }}
+                    />
                   :
                     <img src={addCircleDisabled} style={circles} />                
                 }
                 {
                   maya.scorn > 0 ?
-                    <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('scorn', -1)}/>
+                    <img src={removeCircle} style={circles} onClick={() => {
+                        this.mayaSkill('scorn', -1)
+                        this.tierModifier(6, -1)
+                      }}
+                    />
                   :
                     <img src={removeCircleDisabled} style={circles} />
                 }

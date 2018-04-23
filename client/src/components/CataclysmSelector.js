@@ -14,6 +14,41 @@ import removeCircle from '../assets/images/removecircle.png'
 import removeCircleDisabled from '../assets/images/removecircle_disabled.png'
 
 class CataclysmSelector extends React.Component {
+  state = {
+    tier2: 0,
+    tier3: 0,
+    tier4: 0,
+    tier5: 0,
+    tier6: 0,
+  }
+
+  tierModifier = (tier, mod) => {
+    const {
+      tier2,
+      tier3,
+      tier4,
+      tier5,
+      tier6,
+    } = this.state
+    switch(tier) {
+      case 2:
+        this.setState({ tier2: tier2 + mod })
+        break
+      case 3:
+        this.setState({ tier3: tier3 + mod })
+        break
+      case 4:
+        this.setState({ tier4: tier4 + mod })
+        break
+      case 5:
+        this.setState({ tier5: tier5 + mod })
+        break
+      case 6:
+        this.setState({ tier6: tier6 + mod })
+        break
+      default: break
+    }
+  }
 
   mayaSkill = (skill, modifier) => {
     const { 
@@ -63,6 +98,14 @@ class CataclysmSelector extends React.Component {
       cataclysm,
     } = this.props
 
+    const {
+      tier2,
+      tier3,
+      tier4,
+      tier5,
+      tier6,
+    } = this.state
+
     return (
       <div>
         <Divider horizontal>
@@ -79,7 +122,7 @@ class CataclysmSelector extends React.Component {
                     <img src={addCircleDisabled} style={circles} />                
                 }
                 {
-                  maya.flicker > 0 ?
+                  maya.flicker > 0 && tier2 < 1 ?
                     <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('flicker', -1)}/>
                   :
                     <img src={removeCircleDisabled} style={circles} />
@@ -98,7 +141,7 @@ class CataclysmSelector extends React.Component {
                     <img src={addCircleDisabled} style={circles} />                
                 }
                 {
-                  maya.foresight > 0 ?
+                  maya.foresight > 0 && tier2 < 1 ?
                     <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('foresight', -1)}/>
                   :
                     <img src={removeCircleDisabled} style={circles} />
@@ -116,13 +159,21 @@ class CataclysmSelector extends React.Component {
               <div style={modifyBox}>
                 {
                   maya.immolate < 5 && level < 72 && cataclysm >= 5 ?
-                    <img src={addCircle} style={circles} onClick={() => this.mayaSkill('immolate', 1)}/>
+                    <img src={addCircle} style={circles} onClick={() => {
+                        this.mayaSkill('immolate', 1)
+                        this.tierModifier(2, 1)
+                      }}
+                    />
                   :
                     <img src={addCircleDisabled} style={circles} />                
                 }
                 {
-                  maya.immolate > 0 ?
-                    <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('immolate', -1)}/>
+                  maya.immolate > 0 && tier3 < 1 ?
+                    <img src={removeCircle} style={circles} onClick={() => {
+                        this.mayaSkill('immolate', -1)
+                        this.tierModifier(2, -1)
+                      }}
+                    />
                   :
                     <img src={removeCircleDisabled} style={circles} />
                 }
@@ -135,13 +186,21 @@ class CataclysmSelector extends React.Component {
               <div style={modifyBox}>
                 {
                   maya.helios < 5 && level < 72 && cataclysm >= 5 ?
-                    <img src={addCircle} style={circles} onClick={() => this.mayaSkill('helios', 1)}/>
+                    <img src={addCircle} style={circles} onClick={() => {
+                        this.mayaSkill('helios', 1)
+                        this.tierModifier(2, 1)
+                      }}
+                    />
                   :
                     <img src={addCircleDisabled} style={circles} />                
                 }
                 {
-                  maya.helios > 0 ?
-                    <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('helios', -1)}/>
+                  maya.helios > 0 && tier3 < 1 ?
+                    <img src={removeCircle} style={circles} onClick={() => {
+                        this.mayaSkill('helios', -1)
+                        this.tierModifier(2, -1)
+                      }}
+                    />
                   :
                     <img src={removeCircleDisabled} style={circles} />
                 }
@@ -158,13 +217,21 @@ class CataclysmSelector extends React.Component {
               <div style={modifyBox}>
                 {
                   maya.chain_reaction < 5 && level < 72 && cataclysm >= 10 ?
-                    <img src={addCircle} style={circles} onClick={() => this.mayaSkill('chain_reaction', 1)}/>
+                    <img src={addCircle} style={circles} onClick={() => {
+                        this.mayaSkill('chain_reaction', 1)
+                        this.tierModifier(3, 1)
+                      }}
+                    />
                   :
                     <img src={addCircleDisabled} style={circles} />                
                 }
                 {
-                  maya.chain_reaction > 0 ?
-                    <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('chain_reaction', -1)}/>
+                  maya.chain_reaction > 0 && tier4 < 1 ?
+                    <img src={removeCircle} style={circles} onClick={() => {
+                        this.mayaSkill('chain_reaction', -1)
+                        this.tierModifier(3, -1)
+                      }}
+                    />
                   :
                     <img src={removeCircleDisabled} style={circles} />
                 }
@@ -177,13 +244,21 @@ class CataclysmSelector extends React.Component {
               <div style={modifyBox}>
                 {
                   maya.cloud_kill < 1 && level < 72 && cataclysm >= 10 ?
-                    <img src={addCircle} style={circles} onClick={() => this.mayaSkill('cloud_kill', 1)}/>
+                    <img src={addCircle} style={circles} onClick={() => {
+                        this.mayaSkill('cloud_kill', 1)
+                        this.tierModifier(3, 1)
+                      }}
+                    />
                   :
                     <img src={addCircleDisabled} style={circles} />                
                 }
                 {
-                  maya.cloud_kill > 0 ?
-                    <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('cloud_kill', -1)}/>
+                  maya.cloud_kill > 0 && tier4 < 1 ?
+                    <img src={removeCircle} style={circles} onClick={() => {
+                        this.mayaSkill('cloud_kill', -1)
+                        this.tierModifier(3, -1)
+                      }}
+                    />
                   :
                     <img src={removeCircleDisabled} style={circles} />
                 }
@@ -196,13 +271,21 @@ class CataclysmSelector extends React.Component {
               <div style={modifyBox}>
                 {
                   maya.backdraft < 5 && level < 72 && cataclysm >= 10 ?
-                    <img src={addCircle} style={circles} onClick={() => this.mayaSkill('backdraft', 1)}/>
+                    <img src={addCircle} style={circles} onClick={() => {
+                        this.mayaSkill('backdraft', 1)
+                        this.tierModifier(3, 1)
+                      }}
+                    />
                   :
                     <img src={addCircleDisabled} style={circles} />                
                 }
                 {
-                  maya.backdraft > 0 ?
-                    <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('backdraft', -1)}/>
+                  maya.backdraft > 0 && tier4 < 1 ?
+                    <img src={removeCircle} style={circles} onClick={() => {
+                        this.mayaSkill('backdraft', -1)
+                        this.tierModifier(3, -1)
+                      }}
+                    />
                   :
                     <img src={removeCircleDisabled} style={circles} />
                 }
@@ -219,13 +302,21 @@ class CataclysmSelector extends React.Component {
               <div style={modifyBox}>
                 {
                   maya.reaper < 5 && level < 72 && cataclysm >= 15 ?
-                    <img src={addCircle} style={circles} onClick={() => this.mayaSkill('reaper', 1)}/>
+                    <img src={addCircle} style={circles} onClick={() => {
+                        this.mayaSkill('reaper', 1)
+                        this.tierModifier(4, 1)
+                      }}
+                    />
                   :
                     <img src={addCircleDisabled} style={circles} />                
                 }
                 {
-                  maya.reaper > 0 ?
-                    <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('reaper', -1)}/>
+                  maya.reaper > 0 && tier5 < 1 ?
+                    <img src={removeCircle} style={circles} onClick={() => {
+                        this.mayaSkill('reaper', -1)
+                        this.tierModifier(4, -1)
+                      }}
+                    />
                   :
                     <img src={removeCircleDisabled} style={circles} />
                 }
@@ -242,13 +333,21 @@ class CataclysmSelector extends React.Component {
               <div style={modifyBox}>
                 {
                   maya.blight_phoenix < 5 && level < 72 && cataclysm >= 20 ?
-                    <img src={addCircle} style={circles} onClick={() => this.mayaSkill('blight_phoenix', 1)}/>
+                    <img src={addCircle} style={circles} onClick={() => {
+                        this.mayaSkill('blight_phoenix', 1)
+                        this.tierModifier(5, 1)
+                      }}
+                    />
                   :
                     <img src={addCircleDisabled} style={circles} />                
                 }
                 {
-                  maya.blight_phoenix > 0 ?
-                    <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('blight_phoenix', -1)}/>
+                  maya.blight_phoenix > 0 && tier6 < 1 ?
+                    <img src={removeCircle} style={circles} onClick={() => {
+                        this.mayaSkill('blight_phoenix', -1)
+                        this.tierModifier(5, -1)
+                      }}
+                    />
                   :
                     <img src={removeCircleDisabled} style={circles} />
                 }
@@ -265,13 +364,21 @@ class CataclysmSelector extends React.Component {
               <div style={modifyBox}>
                 {
                   maya.ruin < 1 && level < 72 && cataclysm >= 20 ?
-                    <img src={addCircle} style={circles} onClick={() => this.mayaSkill('ruin', 1)}/>
+                    <img src={addCircle} style={circles} onClick={() => {
+                        this.mayaSkill('ruin', 1)
+                        this.tierModifier(6, 1)
+                      }}
+                    />
                   :
                     <img src={addCircleDisabled} style={circles} />                
                 }
                 {
                   maya.ruin > 0 ?
-                    <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('ruin', -1)}/>
+                    <img src={removeCircle} style={circles} onClick={() => {
+                        this.mayaSkill('ruin', -1)
+                        this.tierModifier(6, -1)
+                      }}
+                    />
                   :
                     <img src={removeCircleDisabled} style={circles} />
                 }

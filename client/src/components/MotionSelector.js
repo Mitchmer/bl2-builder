@@ -550,7 +550,7 @@ class MotionSelector extends React.Component {
 
 const popupStyle = {
   borderRadius: 0,
-  opacity: 0.8,
+  opacity: 0.9,
   padding: '1em',
 }
 

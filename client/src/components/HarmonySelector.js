@@ -1,8 +1,9 @@
 import React from 'react'
 import {
-  Header,
   Divider,
   Grid,
+  Header,
+  Popup,
 } from 'semantic-ui-react'
 import mayaskills from '../assets/images/mayaskills.png'
 import addCircle from '../assets/images/addcircle.png'
@@ -102,285 +103,433 @@ class HarmonySelector extends React.Component {
         </Divider>
         <Grid.Row>
           <div style={twoSkill}>
-            <div style={skillMindsEye}>
-              <div style={modifyBox}>
-                {
-                  maya.minds_eye < 5 && level < 72 ?
-                    <img src={addCircle} style={circles} onClick={() => this.mayaSkill('minds_eye', 1)}/>
-                  :
-                    <img src={addCircleDisabled} style={circles} />                
-                }
-                {
-                  maya.minds_eye > 0 && tier2 < 1 ?
-                    <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('minds_eye', -1)}/>
-                  :
-                    <img src={removeCircleDisabled} style={circles} />
-                }
-              </div>
-              <div style={counterBox}>
-                {maya.minds_eye}/5
-              </div>
-            </div>
-            <div style={skillSweetRelease}>
-              <div style={modifyBox}>
-                {
-                  maya.sweet_release < 5 && level < 72 ?
-                    <img src={addCircle} style={circles} onClick={() => this.mayaSkill('sweet_release', 1)}/>
-                  :
-                    <img src={addCircleDisabled} style={circles} />                
-                }
-                {
-                  maya.sweet_release > 0 && tier2 < 1 ?
-                    <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('sweet_release', -1)}/>
-                  :
-                    <img src={removeCircleDisabled} style={circles} />
-                }
-              </div>
-              <div style={counterBox}>
-                {maya.sweet_release}/5
-              </div>
-            </div>
+            <Popup
+              inverted
+              style={popupStyle}
+              trigger={
+                <div style={skillMindsEye}>
+                  <div style={modifyBox}>
+                    {
+                      maya.minds_eye < 5 && level < 72 ?
+                        <img src={addCircle} style={circles} onClick={() => this.mayaSkill('minds_eye', 1)}/>
+                      :
+                        <img src={addCircleDisabled} style={circles} />                
+                    }
+                    {
+                      maya.minds_eye > 0 && tier2 < 1 ?
+                        <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('minds_eye', -1)}/>
+                      :
+                        <img src={removeCircleDisabled} style={circles} />
+                    }
+                  </div>
+                  <div style={counterBox}>
+                    {maya.minds_eye}/5
+                  </div>
+                </div>
+              }
+              content={
+                <div>
+                  <Header as="h4">
+                    Mind's Eye
+                  </Header>
+                  {`Increases Critical Hit Damage by `}<strong>{`${maya.minds_eye * 5}%`}</strong>{` and Melee Damage by `}<strong>{`${maya.minds_eye * 6}%`}</strong>{`.`}
+                </div>
+              }
+            />
+            <Popup
+              inverted
+              style={popupStyle}
+              trigger={
+
+                <div style={skillSweetRelease}>
+                  <div style={modifyBox}>
+                    {
+                      maya.sweet_release < 5 && level < 72 ?
+                        <img src={addCircle} style={circles} onClick={() => this.mayaSkill('sweet_release', 1)}/>
+                      :
+                        <img src={addCircleDisabled} style={circles} />                
+                    }
+                    {
+                      maya.sweet_release > 0 && tier2 < 1 ?
+                        <img src={removeCircle} style={circles} onClick={() => this.mayaSkill('sweet_release', -1)}/>
+                      :
+                        <img src={removeCircleDisabled} style={circles} />
+                    }
+                  </div>
+                  <div style={counterBox}>
+                    {maya.sweet_release}/5
+                  </div>
+                </div>
+              }
+              content={
+                <div>
+                  <Header as="h4">
+                    Sweet Release
+                  </Header>
+                  {`If the enemy you have Phaselocked is killed, it generates `}<strong>{`${maya.sweet_release}`}</strong>{` Life Orb(s) that automatically seek out and heal you and your friends, with each Life Orb restoring up to `}<strong>{`${maya.sweet_release * 15}%`}</strong>{` of your Max Health. The healing is stronger when you or your friend's health is low.`}
+                </div>
+              }
+            />
           </div>
         </Grid.Row>
         <Grid.Row>
           <div style={twoSkill}>
-            <div style={skillRestoration}>
-              <div style={modifyBox}>
-                {
-                  maya.restoration < 5 && level < 72 && harmony >= 5 ?
-                    <img src={addCircle} style={circles} onClick={() => {
-                        this.mayaSkill('restoration', 1)
-                        this.tierModifier(2, 1)
-                      }}
-                    />
-                  :
-                    <img src={addCircleDisabled} style={circles} />                
-                }
-                {
-                  maya.restoration > 0 && tier3 < 1 ?
-                    <img src={removeCircle} style={circles} onClick={() => {
-                        this.mayaSkill('restoration', -1)
-                        this.tierModifier(2, -1)
-                      }}
-                    />
-                  :
-                    <img src={removeCircleDisabled} style={circles} />
-                }
-              </div>
-              <div style={counterBox}>
-                {maya.restoration}/5
-              </div>
-            </div>
-            <div style={skillWreck}>
-              <div style={modifyBox}>
-                {
-                  maya.wreck < 5 && level < 72 && harmony >= 5 ?
-                    <img src={addCircle} style={circles} onClick={() => {
-                        this.mayaSkill('wreck', 1)
-                        this.tierModifier(2, 1)
-                      }}
-                    />
-                  :
-                    <img src={addCircleDisabled} style={circles} />                
-                }
-                {
-                  maya.wreck > 0 && tier3 < 1 ?
-                    <img src={removeCircle} style={circles} onClick={() => {
-                        this.mayaSkill('wreck', -1)
-                        this.tierModifier(2, -1)
-                      }}
-                    />
-                  :
-                    <img src={removeCircleDisabled} style={circles} />
-                }
-              </div>
-              <div style={counterBox}>
-                {maya.wreck}/5
-              </div>
-            </div>
+            <Popup
+              inverted
+              style={popupStyle}
+              trigger={
+                <div style={skillRestoration}>
+                  <div style={modifyBox}>
+                    {
+                      maya.restoration < 5 && level < 72 && harmony >= 5 ?
+                        <img src={addCircle} style={circles} onClick={() => {
+                            this.mayaSkill('restoration', 1)
+                            this.tierModifier(2, 1)
+                          }}
+                        />
+                      :
+                        <img src={addCircleDisabled} style={circles} />                
+                    }
+                    {
+                      maya.restoration > 0 && tier3 < 1 ?
+                        <img src={removeCircle} style={circles} onClick={() => {
+                            this.mayaSkill('restoration', -1)
+                            this.tierModifier(2, -1)
+                          }}
+                        />
+                      :
+                        <img src={removeCircleDisabled} style={circles} />
+                    }
+                  </div>
+                  <div style={counterBox}>
+                    {maya.restoration}/5
+                  </div>
+                </div>
+              }
+              content={
+                <div>
+                  <Header as="h4">
+                    Restoration
+                  </Header>
+                  {`Shooting other players heals them for `}<strong>{`${maya.restoration * 6}%`}</strong>{` of your outgoing damage. Also increases your Max Health by `}<strong>{`${maya.restoration * 3}%`}</strong>{`.`}
+                </div>
+              }
+            />
+            <Popup
+              inverted
+              style={popupStyle}
+              trigger={
+                <div style={skillWreck}>
+                  <div style={modifyBox}>
+                    {
+                      maya.wreck < 5 && level < 72 && harmony >= 5 ?
+                        <img src={addCircle} style={circles} onClick={() => {
+                            this.mayaSkill('wreck', 1)
+                            this.tierModifier(2, 1)
+                          }}
+                        />
+                      :
+                        <img src={addCircleDisabled} style={circles} />                
+                    }
+                    {
+                      maya.wreck > 0 && tier3 < 1 ?
+                        <img src={removeCircle} style={circles} onClick={() => {
+                            this.mayaSkill('wreck', -1)
+                            this.tierModifier(2, -1)
+                          }}
+                        />
+                      :
+                        <img src={removeCircleDisabled} style={circles} />
+                    }
+                  </div>
+                  <div style={counterBox}>
+                    {maya.wreck}/5
+                  </div>
+                </div>
+              }
+              content={
+                <div>
+                  <Header as="h4">
+                    Wreck
+                  </Header>
+                  {`While you have an enemy Phaselocked, you gain `}<strong>{`${maya.wreck * 10}%`}</strong>{` increased Fire Rate and `}<strong>{`${maya.wreck * 6}%`}</strong>{` increased Damage with all gun types.`}
+                </div>  
+              }
+            />
           </div>
         </Grid.Row>
         <Grid.Row>
           <div style={twoSkill}>
-            <div style={skillElated}>
-              <div style={modifyBox}>
-                {
-                  maya.elated < 5 && level < 72 && harmony >= 10 ?
-                    <img src={addCircle} style={circles} onClick={() => {
-                        this.mayaSkill('elated', 1)
-                        this.tierModifier(3, 1)
-                      }}
-                    />
-                  :
-                    <img src={addCircleDisabled} style={circles} />                
-                }
-                {
-                  maya.elated > 0 && tier4 < 1 ?
-                    <img src={removeCircle} style={circles} onClick={() => {
-                        this.mayaSkill('elated', -1)
-                        this.tierModifier(3, -1)
-                      }}
-                    />
-                  :
-                    <img src={removeCircleDisabled} style={circles} />
-                }
-              </div>
-              <div style={counterBox}>
-                {maya.elated}/5
-              </div>
-            </div>
-            <div style={skillRes}>
-              <div style={modifyBox}>
-                {
-                  maya.res < 1 && level < 72 && harmony >= 10 ?
-                    <img src={addCircle} style={circles} onClick={() => {
-                        this.mayaSkill('res', 1)
-                        this.tierModifier(3, 1)
-                      }}
-                    />
-                  :
-                    <img src={addCircleDisabled} style={circles} />                
-                }
-                {
-                  maya.res > 0 && tier4 < 1 ?
-                    <img src={removeCircle} style={circles} onClick={() => {
-                        this.mayaSkill('res', -1)
-                        this.tierModifier(3, -1)
-                      }}
-                    />
-                  :
-                    <img src={removeCircleDisabled} style={circles} />
-                }
-              </div>
-              <div style={counterBox}>
-                {maya.res}/1
-              </div>
-            </div>
-            <div style={skillRecompense}>
-              <div style={modifyBox}>
-                {
-                  maya.recompense < 5 && level < 72 && harmony >= 10 ?
-                    <img src={addCircle} style={circles} onClick={() => {
-                        this.mayaSkill('recompense', 1)
-                        this.tierModifier(3, 1)
-                      }}
-                    />
-                  :
-                    <img src={addCircleDisabled} style={circles} />                
-                }
-                {
-                  maya.recompense > 0 && tier4 < 1 ?
-                    <img src={removeCircle} style={circles} onClick={() => {
-                        this.mayaSkill('recompense', -1)
-                        this.tierModifier(3, -1)
-                      }}
-                    />
-                  :
-                    <img src={removeCircleDisabled} style={circles} />
-                }
-              </div>
-              <div style={counterBox}>
-                {maya.recompense}/5
-              </div>
-            </div>
+            <Popup
+              inverted
+              style={popupStyle}
+              trigger={
+                <div style={skillElated}>
+                  <div style={modifyBox}>
+                    {
+                      maya.elated < 5 && level < 72 && harmony >= 10 ?
+                        <img src={addCircle} style={circles} onClick={() => {
+                            this.mayaSkill('elated', 1)
+                            this.tierModifier(3, 1)
+                          }}
+                        />
+                      :
+                        <img src={addCircleDisabled} style={circles} />                
+                    }
+                    {
+                      maya.elated > 0 && tier4 < 1 ?
+                        <img src={removeCircle} style={circles} onClick={() => {
+                            this.mayaSkill('elated', -1)
+                            this.tierModifier(3, -1)
+                          }}
+                        />
+                      :
+                        <img src={removeCircleDisabled} style={circles} />
+                    }
+                  </div>
+                  <div style={counterBox}>
+                    {maya.elated}/5
+                  </div>
+                </div>
+              }
+              content={
+                <div>
+                  <Header as="h4">
+                    Elated
+                  </Header>
+                  {`While you have an enemy Phaselocked, you and your friends regenerate `}<strong>{`${maya.elated * 1}%`}</strong>{` of your Max Health/sec.`}
+                </div>  
+              }
+            />
+            <Popup
+              inverted
+              style={popupStyle}
+              trigger={
+                <div style={skillRes}>
+                  <div style={modifyBox}>
+                    {
+                      maya.res < 1 && level < 72 && harmony >= 10 ?
+                        <img src={addCircle} style={circles} onClick={() => {
+                            this.mayaSkill('res', 1)
+                            this.tierModifier(3, 1)
+                          }}
+                        />
+                      :
+                        <img src={addCircleDisabled} style={circles} />                
+                    }
+                    {
+                      maya.res > 0 && tier4 < 1 ?
+                        <img src={removeCircle} style={circles} onClick={() => {
+                            this.mayaSkill('res', -1)
+                            this.tierModifier(3, -1)
+                          }}
+                        />
+                      :
+                        <img src={removeCircleDisabled} style={circles} />
+                    }
+                  </div>
+                  <div style={counterBox}>
+                    {maya.res}/1
+                  </div>
+                </div>
+              }
+              content={
+                <div>
+                  <Header as="h4">
+                    Res
+                  </Header>
+                  {`You can instantly revive a friend in Fight For Your Life by using Phaselock on him/her.`}
+                </div>                 
+              }
+            />
+            <Popup
+              inverted
+              style={popupStyle}
+              trigger={
+                <div style={skillRecompense}>
+                  <div style={modifyBox}>
+                    {
+                      maya.recompense < 5 && level < 72 && harmony >= 10 ?
+                        <img src={addCircle} style={circles} onClick={() => {
+                            this.mayaSkill('recompense', 1)
+                            this.tierModifier(3, 1)
+                          }}
+                        />
+                      :
+                        <img src={addCircleDisabled} style={circles} />                
+                    }
+                    {
+                      maya.recompense > 0 && tier4 < 1 ?
+                        <img src={removeCircle} style={circles} onClick={() => {
+                            this.mayaSkill('recompense', -1)
+                            this.tierModifier(3, -1)
+                          }}
+                        />
+                      :
+                        <img src={removeCircleDisabled} style={circles} />
+                    }
+                  </div>
+                  <div style={counterBox}>
+                    {maya.recompense}/5
+                  </div>
+                </div>
+              }
+              content={
+                <div>
+                  <Header as="h4">
+                    Recompense
+                  </Header>
+                  {`When you take health damage, there is a `}<strong>{`${maya.recompense * 10}%`}</strong>{` chance that your attacker takes damage equal to the amount of health lost.`}
+                </div>  
+              }
+            />
           </div>
         </Grid.Row>
         <Grid.Row>
           <div style={oneSkill}>
-            <div style={skillSustenance}>
-              <div style={modifyBox}>
-                {
-                  maya.sustenance < 5 && level < 72 && harmony >= 15 ?
-                    <img src={addCircle} style={circles} onClick={() => {
-                        this.mayaSkill('sustenance', 1)
-                        this.tierModifier(4, 1)
-                      }}
-                    />
-                  :
-                    <img src={addCircleDisabled} style={circles} />                
-                }
-                {
-                  maya.sustenance > 0 && tier5 < 1 ?
-                    <img src={removeCircle} style={circles} onClick={() => {
-                        this.mayaSkill('sustenance', -1)
-                        this.tierModifier(4, -1)
-                      }}
-                    />
-                  :
-                    <img src={removeCircleDisabled} style={circles} />
-                }
-              </div>
-              <div style={counterBox}>
-                {maya.sustenance}/5
-              </div>
-            </div>
+            <Popup
+              inverted
+              style={popupStyle}
+              trigger={
+                <div style={skillSustenance}>
+                  <div style={modifyBox}>
+                    {
+                      maya.sustenance < 5 && level < 72 && harmony >= 15 ?
+                        <img src={addCircle} style={circles} onClick={() => {
+                            this.mayaSkill('sustenance', 1)
+                            this.tierModifier(4, 1)
+                          }}
+                        />
+                      :
+                        <img src={addCircleDisabled} style={circles} />                
+                    }
+                    {
+                      maya.sustenance > 0 && tier5 < 1 ?
+                        <img src={removeCircle} style={circles} onClick={() => {
+                            this.mayaSkill('sustenance', -1)
+                            this.tierModifier(4, -1)
+                          }}
+                        />
+                      :
+                        <img src={removeCircleDisabled} style={circles} />
+                    }
+                  </div>
+                  <div style={counterBox}>
+                    {maya.sustenance}/5
+                  </div>
+                </div>
+              }
+              content={
+                <div>
+                  <Header as="h4">
+                    Sustenance
+                  </Header>
+                  {`You constantly regenerate health at a rate of up to `}<strong>{`${maya.sustenance * .4}%`}</strong>{` of your missing health every second. The lower your current health, the more powerful the regeneration.`}
+                </div> 
+              }
+            />
           </div>
         </Grid.Row>
         <Grid.Row>
           <div style={oneSkill}>
-            <div style={skillLifeTap}>
-              <div style={modifyBox}>
-                {
-                  maya.life_tap < 5 && level < 72 && harmony >= 20 ?
-                    <img src={addCircle} style={circles} onClick={() => {
-                        this.mayaSkill('life_tap', 1)
-                        this.tierModifier(5, 1)
-                      }}
-                    />
-                  :
-                    <img src={addCircleDisabled} style={circles} />                
-                }
-                {
-                  maya.life_tap > 0 && tier6 < 1 ?
-                    <img src={removeCircle} style={circles} onClick={() => {
-                        this.mayaSkill('life_tap', -1)
-                        this.tierModifier(5, -1)
-                      }}
-                    />
-                  :
-                    <img src={removeCircleDisabled} style={circles} />
-                }
-              </div>
-              <div style={counterBox}>
-                {maya.life_tap}/5
-              </div>
-            </div>
+            <Popup
+              inverted
+              style={popupStyle}
+              trigger={
+                <div style={skillLifeTap}>
+                  <div style={modifyBox}>
+                    {
+                      maya.life_tap < 5 && level < 72 && harmony >= 20 ?
+                        <img src={addCircle} style={circles} onClick={() => {
+                            this.mayaSkill('life_tap', 1)
+                            this.tierModifier(5, 1)
+                          }}
+                        />
+                      :
+                        <img src={addCircleDisabled} style={circles} />                
+                    }
+                    {
+                      maya.life_tap > 0 && tier6 < 1 ?
+                        <img src={removeCircle} style={circles} onClick={() => {
+                            this.mayaSkill('life_tap', -1)
+                            this.tierModifier(5, -1)
+                          }}
+                        />
+                      :
+                        <img src={removeCircleDisabled} style={circles} />
+                    }
+                  </div>
+                  <div style={counterBox}>
+                    {maya.life_tap}/5
+                  </div>
+                </div>
+              }
+              content={
+                <div>
+                  <Header as="h4">
+                    Life Tap
+                  </Header>
+                  {`Kill Skill. Killing an enemy causes you to steal `}<strong>{`${maya.life_tap * 1.2}%`}</strong>{` health from any enemy you damage for a short time.`}
+                </div> 
+              }
+            />
           </div>
         </Grid.Row>
         <Grid.Row>
           <div style={oneSkill}>
-            <div style={skillScorn}>
-              <div style={modifyBox}>
-                {
-                  maya.scorn < 1 && level < 72 && harmony >= 25 ?
-                    <img src={addCircle} style={circles} onClick={() => {
-                        this.mayaSkill('scorn', 1)
-                        this.tierModifier(6, 1)
-                      }}
-                    />
-                  :
-                    <img src={addCircleDisabled} style={circles} />                
-                }
-                {
-                  maya.scorn > 0 ?
-                    <img src={removeCircle} style={circles} onClick={() => {
-                        this.mayaSkill('scorn', -1)
-                        this.tierModifier(6, -1)
-                      }}
-                    />
-                  :
-                    <img src={removeCircleDisabled} style={circles} />
-                }
-              </div>
-              <div style={counterBox}>
-                {maya.scorn}/1
-              </div>
-            </div>
+            <Popup
+              inverted
+              style={popupStyle}
+              trigger={
+
+                <div style={skillScorn}>
+                  <div style={modifyBox}>
+                    {
+                      maya.scorn < 1 && level < 72 && harmony >= 25 ?
+                        <img src={addCircle} style={circles} onClick={() => {
+                            this.mayaSkill('scorn', 1)
+                            this.tierModifier(6, 1)
+                          }}
+                        />
+                      :
+                        <img src={addCircleDisabled} style={circles} />                
+                    }
+                    {
+                      maya.scorn > 0 ?
+                        <img src={removeCircle} style={circles} onClick={() => {
+                            this.mayaSkill('scorn', -1)
+                            this.tierModifier(6, -1)
+                          }}
+                        />
+                      :
+                        <img src={removeCircleDisabled} style={circles} />
+                    }
+                  </div>
+                  <div style={counterBox}>
+                    {maya.scorn}/1
+                  </div>
+                </div>
+              }
+              content={
+                <div>
+                  <Header as="h4">
+                    Scorn
+                  </Header>
+                  {`Melee Override Skill. Press R to throw an orb of slag that constantly damage enemies near it. This ability has an `}<strong>{`18 second`}</strong>{` cooldown. Pressing R when Scorn is on cooldown will perform a regular melee attack.`}
+                </div> 
+              }
+            />
           </div>
         </Grid.Row>
       </div>
     )
   }
+}
+
+const popupStyle = {
+  borderRadius: 0,
+  opacity: 0.9,
+  padding: '1em',
 }
 
 const skillsSquare = {

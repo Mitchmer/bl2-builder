@@ -465,7 +465,7 @@ class BuildForm extends React.Component {
           {
             guns.map( (g, i) => {
               return (
-                <div>
+                <div key={g.id}>
                   {g.name}
                   {
                     buildGuns.length < 4 &&

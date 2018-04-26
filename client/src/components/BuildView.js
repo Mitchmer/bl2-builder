@@ -155,7 +155,7 @@ class BuildView extends React.Component {
                 {
                   this.props.location.state.guns.map( g => {
                     return (
-                      <div>
+                      <div key={g.id}>
                         <Divider hidden />
                         <List.Item>
                           <Header as="h4">

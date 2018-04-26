@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Header, Container, Divider, Grid } from 'semantic-ui-react'
+import { Header, Container, Divider, Grid, List } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 
 class BuildView extends React.Component {
@@ -128,25 +128,50 @@ class BuildView extends React.Component {
   }
 
   render() {
-    const { build = {} } = this.props
-
-    return (
-      <Container>
-        <Divider hidden />
-        <Header as="h2">
-          {build.name}
-        </Header>
-        <Header as="h5">
-          {build.character}
-        </Header>
-        <Header as="h5">
-          {build.description}
-        </Header>
-        <Grid>
-          { this.skillView() }
-        </Grid>
-      </Container>
-    )
+    const { build = {}, history, dispatch } = this.props
+    if (build === undefined) {
+      dispatch(history.push('/'))
+    } else {
+      return (
+        <Container>
+          <Divider hidden />
+          <Header as="h2">
+            {build.name}
+          </Header>
+          <Header as="h5">
+            {build.character}
+          </Header>
+          <Header as="h5">
+            {build.description}
+          </Header>
+          <Grid>
+            { this.skillView() }
+            <Divider horizontal />
+            <Grid.Row>
+              <Header as="h2">
+                Guns:
+              </Header>
+              <List>
+                {
+                  this.props.location.state.guns.map( g => {
+                    return (
+                      <div>
+                        <Divider hidden />
+                        <List.Item>
+                          <Header as="h4">
+                            {g.name}
+                          </Header>
+                        </List.Item>
+                      </div>
+                    )
+                  })
+                }
+              </List>
+            </Grid.Row>
+          </Grid>
+        </Container>
+      )
+    }
   }
 }
 

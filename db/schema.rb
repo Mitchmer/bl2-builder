@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180417154701) do
+ActiveRecord::Schema.define(version: 20180425223645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "build_guns", force: :cascade do |t|
+    t.bigint "build_id"
+    t.bigint "gun_id"
+    t.string "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["build_id"], name: "index_build_guns_on_build_id"
+    t.index ["gun_id"], name: "index_build_guns_on_gun_id"
+  end
 
   create_table "builds", force: :cascade do |t|
     t.string "name"
@@ -24,6 +34,13 @@ ActiveRecord::Schema.define(version: 20180417154701) do
     t.text "description"
     t.json "skills", default: {"maya"=>{"ward"=>0, "accelerate"=>0, "kinetic_reflection"=>0, "suspension"=>0, "inertia"=>0, "fleet"=>0, "converge"=>0, "quicken"=>0, "sub_sequence"=>0, "thoughlock"=>0, "minds_eye"=>0, "sweet_release"=>0, "restoration"=>0, "wreck"=>0, "elated"=>0, "recompense"=>0, "res"=>0, "sustenance"=>0, "life_tap"=>0, "scorn"=>0, "flicker"=>0, "foresight"=>0, "immolate"=>0, "helios"=>0, "chain_reaction"=>0, "backdraft"=>0, "cloud_kill"=>0, "reaper"=>0, "blight_pheonix"=>0, "ruin"=>0}}
     t.index ["user_id"], name: "index_builds_on_user_id"
+  end
+
+  create_table "guns", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -57,5 +74,7 @@ ActiveRecord::Schema.define(version: 20180417154701) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "build_guns", "builds"
+  add_foreign_key "build_guns", "guns"
   add_foreign_key "builds", "users"
 end

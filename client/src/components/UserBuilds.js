@@ -33,11 +33,9 @@ class UserBuilds extends React.Component {
                   userBuilds.map( b =>
                     <div key={b.id}>
                       <List.Item>
-                        <Link to={`/builds/${b.id}`}>
-                          <Header as="h2">
-                            {b.name}
-                          </Header>
-                        </Link>
+                        <Header as="h2" cursor="pointer" onClick={() => this.props.viewBuild(b.id)}>
+                          {b.name}
+                        </Header>
                         <StyledHeader as="h5">
                           {b.character}
                         </StyledHeader>

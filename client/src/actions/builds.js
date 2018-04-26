@@ -15,13 +15,17 @@ export const getBuilds = () => {
 }
 
 export const addBuild = (build, history) => {
+  const { buildGuns } = build
   return (dispatch) => {
     axios.post('api/builds/', { build })
       .then( res => {
         dispatch({ type: ADD_BUILD, build: res.data })
         dispatch({ type: 'HEADERS', headers: res.headers })
-        history.push(`/builds/${res.data.id}`)
-      })      
+        history.push({
+          pathname: `/builds/${res.data.id}`,
+          state: { guns: buildGuns }
+        })
+      })     
   }
 }
 

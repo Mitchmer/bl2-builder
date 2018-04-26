@@ -5,13 +5,17 @@ import {
   Container, 
   Form, 
   Button,
+  Icon,
 } from 'semantic-ui-react'
 import { addBuild } from '../actions/builds'
 import MayaSkillSelector from './MayaSkillSelector'
 import ZeroSkillSelector from './ZeroSkillSelector'
+import axios from 'axios'
 
 class BuildForm extends React.Component {
   state = { 
+    guns: [],
+    buildGuns: [],
     buildName: '', 
     character: '', 
     description: '',
@@ -98,6 +102,13 @@ class BuildForm extends React.Component {
     // { key: 'gaige', text: 'Gaige, Mechromancer', value: 'Gaige' },
   ]
 
+  componentDidMount() {
+    axios.get('/api/guns')
+      .then( res => {
+        this.setState({ guns: res.data })
+      })
+  }
+
   resetSkills = (skill) => {
     switch(skill) {
       case 'maya':
@@ -152,8 +163,8 @@ class BuildForm extends React.Component {
 
   handleSubmit = () => {
     const { dispatch, history } = this.props
-    const { buildName, character, description, skills } = this.state
-    let pendingBuild = { name: buildName, character, description, skills }    
+    const { buildName, character, description, skills, buildGuns } = this.state
+    let pendingBuild = { name: buildName, character, description, skills, buildGuns }    
     dispatch(addBuild(pendingBuild, history))
   }
 
@@ -413,7 +424,7 @@ class BuildForm extends React.Component {
 
   render() {
 
-    const { buildName, character, description } = this.state
+    const { buildName, character, description, guns, buildGuns } = this.state
     return (
       <Container>
         <Form onSubmit={this.handleSubmit}>
@@ -451,6 +462,32 @@ class BuildForm extends React.Component {
             />
           </Form.Field>
           {this.classPicker()}
+          {
+            guns.map( (g, i) => {
+              return (
+                <div>
+                  {g.name}
+                  {
+                    buildGuns.length < 4 &&
+                      <Icon name="add circle" onClick={() => {
+                            this.setState({
+                              buildGuns: [...buildGuns, g]
+                            })
+                          }
+                        }
+                      />                      
+                    }
+                    <Icon name="remove circle" onClick={() => {
+                      if (buildGuns.includes(g)) {
+                        const newGuns = buildGuns.splice(i, 1)
+                        this.setState({ buildGuns })
+                      }
+                    }}
+                    />
+                </div>
+              )
+            })
+          }
           <Button>Submit</Button>
         </Form>
       </Container>

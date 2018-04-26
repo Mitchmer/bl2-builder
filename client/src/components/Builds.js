@@ -11,9 +11,10 @@ import { connect } from 'react-redux'
 import { getBuilds } from '../actions/builds'
 import { Link } from 'react-router-dom'
 import UserBuilds from './UserBuilds'
+import axios from 'axios'
 
 class Builds extends React.Component {
-  state = { buildView: '' }
+  state = { buildView: '', guns: [] }
 
   componentDidMount() {
     const { dispatch, user } = this.props
@@ -33,12 +34,28 @@ class Builds extends React.Component {
     })
   }
 
+  viewBuild = (id) => {
+    const { history, dispatch } = this.props
+    axios.get('/api/get_guns', { params: { id } } )
+      .then ( res => {
+        dispatch(history.push({
+          pathname: `builds/${id}`,
+          state: { guns: res.data }
+        }))
+      })
+  }
+
   buildsToggle = () => {
+
     const { builds } = this.props
     const { buildView } = this.state
     switch (this.state.buildView) {
       case 'user builds':
-        return <UserBuilds />
+        return (
+          <UserBuilds 
+            viewBuild={this.viewBuild}
+          />
+        )
       default:
         return (
           <div>
@@ -51,11 +68,9 @@ class Builds extends React.Component {
               { builds.map( build => (
                   <div key={build.id}>
                     <List.Item>
-                      <Link to={`/builds/${build.id}`}>
-                        <Header as="h2">
+                        <Header as="h2" cursor="pointer" onClick={() => this.viewBuild(build.id)}>
                           {build.name}
                         </Header>
-                      </Link>
                       <StyledHeader as="h5">
                         {build.character}
                       </StyledHeader>

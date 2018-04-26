@@ -21,6 +21,7 @@ class Api::BuildsController < ApplicationController
     build = current_user.builds.create(build_params)
     build_guns = params[:build][:buildGuns]
     build_guns.each do |bg|
+      binding.pry
       BuildGun.create(
         build_id: build[:id],
         gun_id: bg[:id]

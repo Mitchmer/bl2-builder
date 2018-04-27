@@ -4,6 +4,9 @@ import { withRouter } from 'react-router-dom'
 import { 
   Container, 
   Form, 
+  Divider,
+  Header,
+  Grid,
   Button,
   Icon,
 } from 'semantic-ui-react'
@@ -462,32 +465,50 @@ class BuildForm extends React.Component {
             />
           </Form.Field>
           {this.classPicker()}
-          {
-            guns.map( (g, i) => {
-              return (
-                <div key={g.id}>
-                  {g.name}
-                  {
-                    buildGuns.length < 4 &&
-                      <Icon name="add circle" onClick={() => {
-                            this.setState({
-                              buildGuns: [...buildGuns, g]
-                            })
-                          }
+          <Divider hidden />
+          <Divider horizontal>
+            <Header as="h2">
+              Guns
+            </Header>
+          </Divider>
+          <Grid fluid columns={2} divided>
+            <Grid.Column textAlign="center">
+              {
+                guns.map( g => {
+                  return (
+                    <div key={g.id}>
+                      {g.name}
+                      {
+                        buildGuns.length < 4 &&
+                          <Icon name="add circle" onClick={() => {
+                                this.setState({
+                                  buildGuns: [...buildGuns, g]
+                                })
+                            }}
+                          />                      
                         }
-                      />                      
-                    }
-                    <Icon name="remove circle" onClick={() => {
-                      if (buildGuns.includes(g)) {
-                        const newGuns = buildGuns.splice(i, 1)
-                        this.setState({ buildGuns })
-                      }
-                    }}
-                    />
-                </div>
-              )
-            })
-          }
+                    </div>
+                  )
+                })
+              }
+            </Grid.Column>
+            <Grid.Column>
+              {
+                buildGuns.map( (bg, i) => {
+                  return (
+                    <div key={bg.id}>
+                      {bg.name}
+                      <Icon name="remove circle" onClick={() => {
+                          const newGuns = buildGuns.splice(i, 1)
+                          this.setState({ buildGuns })
+                      }}
+                      />
+                    </div>
+                  )
+                })
+              }
+            </Grid.Column>
+          </Grid>
           <Button>Submit</Button>
         </Form>
       </Container>

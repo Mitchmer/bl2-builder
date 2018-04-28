@@ -13,6 +13,7 @@ import {
 import { addBuild } from '../actions/builds'
 import MayaSkillSelector from './MayaSkillSelector'
 import ZeroSkillSelector from './ZeroSkillSelector'
+import styled from 'styled-components'
 import axios from 'axios'
 
 class BuildForm extends React.Component {
@@ -519,5 +520,18 @@ class BuildForm extends React.Component {
 const mapStateToProps = (state) => {
   return { build: state.userbuilds }
 }
+
+const GunContainer = styled.div`
+  height: 50px;
+  display: flex;
+  justify-content: flex-start;
+  border-radius: 3px;
+  background-color: #68a2ff;
+`
+
+const GunImage = styled.img`
+  height: 100%;
+  width: auto;
+`
 
 export default withRouter(connect(mapStateToProps)(BuildForm))

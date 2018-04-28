@@ -4,10 +4,11 @@ import {
   Form,
   List,
   Header,
+  Image,
 } from 'semantic-ui-react'
 
 class GunForm extends React.Component {
-  state = { guns: [], name: '' }
+  state = { guns: [], name: '', image: '' }
   
   componentDidMount() {
     axios.get(`api/guns`)
@@ -24,8 +25,8 @@ class GunForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    const { name } = this.state
-    const gun = { name }
+    const { name, image } = this.state
+    const gun = { name, image }
     axios.post('/api/guns', { gun })
       .then( res => {
         this.setState({ name: '' })
@@ -33,7 +34,7 @@ class GunForm extends React.Component {
   }
 
   render() {
-    const { guns, name } = this.state
+    const { guns, name, image } = this.state
     return (
       <div>
         <Form onSubmit={this.handleSubmit}>
@@ -42,6 +43,13 @@ class GunForm extends React.Component {
             required
             value={name}
             name="name"
+            onChange={this.handleChange}
+          />
+          <Form.Input
+            placeholder="Image Path"
+            required
+            value={image}
+            name="image"
             onChange={this.handleChange}
           />
           <Form.Button>Add</Form.Button>
@@ -54,6 +62,7 @@ class GunForm extends React.Component {
                   <Header as="h2">
                     {g.name}
                   </Header>
+                  <Image src={g.image} />
                 </List.Item>
               )
             })

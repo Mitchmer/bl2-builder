@@ -478,16 +478,18 @@ class BuildForm extends React.Component {
                 guns.map( g => {
                   return (
                     <div key={g.id}>
-                      {g.name}
-                      {
-                        buildGuns.length < 4 &&
-                          <Icon name="add circle" onClick={() => {
+                      <GunContainer>
+                        <GunImage src={g.image} />
+                          {
+                            buildGuns.length < 4 &&
+                              <Icon name="add circle" onClick={() => {
                                 this.setState({
                                   buildGuns: [...buildGuns, g]
                                 })
-                            }}
-                          />                      
-                        }
+                            }}/>                      
+                          }
+                        {g.name}
+                      </GunContainer>
                     </div>
                   )
                 })
@@ -522,16 +524,20 @@ const mapStateToProps = (state) => {
 }
 
 const GunContainer = styled.div`
-  height: 50px;
+  height: 100px;
   display: flex;
   justify-content: flex-start;
-  border-radius: 3px;
+  border-color: #b2cfff;
+  border-width: 4px;
+  border-radius: 5px;
   background-color: #68a2ff;
+  margin: 5px 0;
 `
 
 const GunImage = styled.img`
   height: 100%;
   width: auto;
+  border-radius: 5px 0 0 5px;
 `
 
 export default withRouter(connect(mapStateToProps)(BuildForm))

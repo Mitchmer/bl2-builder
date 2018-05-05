@@ -1,7 +1,9 @@
 class Build < ApplicationRecord
   belongs_to :user
   has_many :build_guns
+  has_many :build_shields
   has_many :guns, through: :build_guns
+  has_many :shields, through: :build_shields
   # def self.get_user_builds
   #   Build.find_by_sql('
   #     SELECT builds.id, name, character, user_id, users.email, builds.created_at

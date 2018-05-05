@@ -19,7 +19,9 @@ import axios from 'axios'
 class BuildForm extends React.Component {
   state = { 
     guns: [],
+    shields: [],
     buildGuns: [],
+    buildShields: [],
     buildName: '', 
     character: '', 
     description: '',
@@ -110,6 +112,10 @@ class BuildForm extends React.Component {
     axios.get('/api/guns')
       .then( res => {
         this.setState({ guns: res.data })
+      })
+    axios.get('/api/shields')
+      .then( res => {
+        this.setState({ shields: res.data })
       })
   }
 
@@ -428,7 +434,7 @@ class BuildForm extends React.Component {
 
   render() {
 
-    const { buildName, character, description, guns, buildGuns } = this.state
+    const { buildName, character, description, guns, buildGuns, shields, buildShields } = this.state
     return (
       <Container>
         <Form onSubmit={this.handleSubmit}>
@@ -473,32 +479,32 @@ class BuildForm extends React.Component {
             </Header>
           </Divider>
           <Grid fluid columns={2} divided>
-            <Grid.Column textAlign="center">
-              {
-                guns.map( g => {
-                  return (
-                    <div key={g.id}>
-                      <GunContainer>
-                        <GunImage src={g.image} />
-                        <GunContentContainer>
-                          {
-                            buildGuns.length < 4 &&
-                              <Icon name="add circle" onClick={() => {
-                                this.setState({
-                                  buildGuns: [...buildGuns, g]
-                                })
-                            }}/>                      
-                          }
-                          {g.name}
-                        </GunContentContainer>
-                      </GunContainer>
-                    </div>
-                  )
-                })
-              }
-            </Grid.Column>
-            <Grid.Column>
-              <div>
+            <Grid.Row>
+              <Grid.Column textAlign="center">
+                {
+                  guns.map( g => {
+                    return (
+                      <div key={g.id}>
+                        <GunContainer>
+                          <GunImage src={g.image} />
+                          <GunContentContainer>
+                            {
+                              buildGuns.length < 4 &&
+                                <Icon name="add circle" onClick={() => {
+                                  this.setState({
+                                    buildGuns: [...buildGuns, g]
+                                  })
+                              }}/>                      
+                            }
+                            {g.name}
+                          </GunContentContainer>
+                        </GunContainer>
+                      </div>
+                    )
+                  })
+                }
+              </Grid.Column>
+              <Grid.Column>
                 {
                   buildGuns.map( (bg, i) => {
                     return (
@@ -518,8 +524,27 @@ class BuildForm extends React.Component {
                     )
                   })
                 }
-              </div>
-            </Grid.Column>
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+                {
+                  shields.map( s => {
+                    return (
+                      <div key={s.id}>
+                        {s.name}
+                        {
+                          buildShields < 1 &&
+                          <Icon name="add circle" onClick={ () =>
+                            this.setState({ buildShields: [s] })
+                          }/>
+                        }
+                      </div>
+                    )
+                  })
+                }
+              </Grid.Column>
+            </Grid.Row>
           </Grid>
           <Button>Submit</Button>
         </Form>

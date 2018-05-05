@@ -5,7 +5,7 @@ import BuildForm from './BuildForm'
 import FetchBuilds from './FetchBuilds'
 import FetchUser from './FetchUser';
 import Flash from './Flash';
-import GunForm from './GunForm'
+import ItemForm from './ItemForm'
 import Home from './Home';
 import Login from './Login';
 import NoMatch from './NoMatch';
@@ -28,7 +28,7 @@ class App extends Component {
             {/* <Route path='/builds' component={FetchBuilds} /> */}
             <Route exact path="/builds/:id" component={BuildView} />
             <Route exact path="/builds" component={Builds} />
-            <Route exact path='/gunform' component={GunForm} />
+            <Route exact path='/itemform' component={ItemForm} />
             <ProtectedRoute exact path='/userbuilds' component={UserBuilds} />
             <ProtectedRoute exact path='/create' component={BuildForm} />
             <AuthRoute exact path='/login' component={Login} />

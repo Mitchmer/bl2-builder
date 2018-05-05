@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180428214944) do
+ActiveRecord::Schema.define(version: 20180505145200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(version: 20180428214944) do
     t.datetime "updated_at", null: false
     t.index ["build_id"], name: "index_build_guns_on_build_id"
     t.index ["gun_id"], name: "index_build_guns_on_gun_id"
+  end
+
+  create_table "build_shields", force: :cascade do |t|
+    t.bigint "build_id"
+    t.bigint "shield_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["build_id"], name: "index_build_shields_on_build_id"
+    t.index ["shield_id"], name: "index_build_shields_on_shield_id"
   end
 
   create_table "builds", force: :cascade do |t|
@@ -42,6 +51,14 @@ ActiveRecord::Schema.define(version: 20180428214944) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "image"
+  end
+
+  create_table "shields", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.text "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -77,5 +94,7 @@ ActiveRecord::Schema.define(version: 20180428214944) do
 
   add_foreign_key "build_guns", "builds"
   add_foreign_key "build_guns", "guns"
+  add_foreign_key "build_shields", "builds"
+  add_foreign_key "build_shields", "shields"
   add_foreign_key "builds", "users"
 end

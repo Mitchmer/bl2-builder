@@ -3,11 +3,14 @@ Rails.application.routes.draw do
   namespace :api do
     resources :users, only: :update
     resources :guns
-    resources :build_guns, only: [:new, :create, :destroy]
+    resources :shields
+    resources :build_guns, only: [:create, :destroy]
+    resources :build_shields, only: [:create, :destroy]
   end
 
   post 'api/builds', to: 'api/builds#create'
   get 'api/get_guns', to: 'api/guns#get_guns'
+  get 'api/get_shields', to: 'api/shields#get_shields'
   get 'api/builds', to: 'api/builds#index'
   get 'api/builds/:id', to: 'api/builds#show'
   get 'api/users/:id/builds', to: 'api/builds#user_index'

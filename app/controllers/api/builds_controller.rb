@@ -20,12 +20,17 @@ class Api::BuildsController < ApplicationController
   def create
     build = current_user.builds.create(build_params)
     build_guns = params[:build][:buildGuns]
+    build_shield = params[:build][:buildShields]
     build_guns.each do |bg|
       BuildGun.create(
         build_id: build[:id],
         gun_id: bg[:id]
       )
     end
+    build_shield.create(
+        build_id: build[:id],
+        shield_id: build_shield[:id]
+    )
     if build.save
       render json: build
     else
@@ -34,6 +39,7 @@ class Api::BuildsController < ApplicationController
   end
 
   def destroy
+    @build.destroy
   end
 
   private

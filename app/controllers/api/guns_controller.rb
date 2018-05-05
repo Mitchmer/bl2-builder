@@ -26,10 +26,10 @@ class Api::GunsController < ApplicationController
   
   private
     def set_gun
-        @gun = Gun.find(params[:id])
+      @gun = Gun.find(params[:id])
     end
 
     def gun_params
-      params.require(:gun).permit(:name, :description, :id)
+      params.require(:gun).permit(:name, :description, :image, :id)
     end
 end

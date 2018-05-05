@@ -480,6 +480,7 @@ class BuildForm extends React.Component {
                     <div key={g.id}>
                       <GunContainer>
                         <GunImage src={g.image} />
+                        <GunContentContainer>
                           {
                             buildGuns.length < 4 &&
                               <Icon name="add circle" onClick={() => {
@@ -488,7 +489,8 @@ class BuildForm extends React.Component {
                                 })
                             }}/>                      
                           }
-                        {g.name}
+                          {g.name}
+                        </GunContentContainer>
                       </GunContainer>
                     </div>
                   )
@@ -496,20 +498,27 @@ class BuildForm extends React.Component {
               }
             </Grid.Column>
             <Grid.Column>
-              {
-                buildGuns.map( (bg, i) => {
-                  return (
-                    <div key={bg.id}>
-                      {bg.name}
-                      <Icon name="remove circle" onClick={() => {
-                          const newGuns = buildGuns.splice(i, 1)
-                          this.setState({ buildGuns })
-                      }}
-                      />
-                    </div>
-                  )
-                })
-              }
+              <div>
+                {
+                  buildGuns.map( (bg, i) => {
+                    return (
+                      <div key={bg.id}>
+                        <GunContainer>
+                          <GunImage src={bg.image} />
+                          <GunContentContainer>
+                            {bg.name}
+                            <Icon name="remove circle" onClick={() => {
+                                const newGuns = buildGuns.splice(i, 1)
+                                this.setState({ buildGuns })
+                            }}
+                            />
+                          </GunContentContainer>
+                        </GunContainer>
+                      </div>
+                    )
+                  })
+                }
+              </div>
             </Grid.Column>
           </Grid>
           <Button>Submit</Button>
@@ -527,11 +536,21 @@ const GunContainer = styled.div`
   height: 100px;
   display: flex;
   justify-content: flex-start;
-  border-color: #b2cfff;
+  border-color: #ffe502;
+  border-style: solid;
   border-width: 4px;
   border-radius: 5px;
-  background-color: #68a2ff;
+  background-color: #0043af;
   margin: 5px 0;
+`
+
+const GunContentContainer = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  font-size: 20px;
+  color: white;
 `
 
 const GunImage = styled.img`
